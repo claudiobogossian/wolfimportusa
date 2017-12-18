@@ -37,21 +37,61 @@ class CreateNametableTable extends Migration
             $table->boolean('enabled');
 	    $table->foreign('userid')->references('id')->on('users');
         });
-	Schema::create('useranalysis', function (Blueprint $table) {
+	Schema::create('requesttype', function (Blueprint $table) {
+            $table->increments('id');
+            $table->date('name');
+           
+        });
+	Schema::create('requeststatus', function (Blueprint $table) {
+            $table->increments('id');
+            $table->date('name');
+           
+        });
+	Schema::create('requests', function (Blueprint $table) {
+            $table->increments('id');
+            $table->date('date');
+            $table->integer('requesttypeid');
+            $table->integer('requeststatusid');
+            $table->boolean('approved');
+	    $table->foreign('requesttypeid')->references('id')->on('requesttype');
+	    $table->foreign('requeststatusid')->references('id')->on('requeststatus');
+           
+        });
+	Schema::create('withdraw', function (Blueprint $table) {
+            $table->increments('id');
+            $table->date('date');
+            $table->date('enddate');
+            $table->integer('requestid');
             $table->integer('userid');
-            $table->boolean('enabled');
-            $table->integer('investiment_percent');
-            $table->string('requestid');
+            $table->decimal('value');
 	    $table->foreign('userid')->references('id')->on('users');
 	    $table->foreign('requestid')->references('id')->on('requests');
         });
-	Schema::create('investiment', function (Blueprint $table) {
+	Schema::create('useranalysis', function (Blueprint $table) {
             $table->integer('userid');
             $table->boolean('enabled');
-            $table->integer('investiment_percent');
-            $table->string('requestid');
+            $table->integer('investimentpercent');
+            $table->integer('requestid');
 	    $table->foreign('userid')->references('id')->on('users');
 	    $table->foreign('requestid')->references('id')->on('requests');
+        });
+	Schema::create('plan', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->integer('days');
+        });
+	Schema::create('investiment', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('userid');
+            $table->decimal('value');
+            $table->date('initdate');
+            $table->date('enddate');
+            $table->integer('planid');
+            $table->boolean('enabled');
+            $table->integer('requestid');
+	    $table->foreign('userid')->references('id')->on('users');
+	    $table->foreign('requestid')->references('id')->on('requests');
+	    $table->foreign('planid')->references('id')->on('plan');
         });
 
 
@@ -64,6 +104,16 @@ class CreateNametableTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nametable');
+        Schema::dropIfExists('investiment');
+        Schema::dropIfExists('plan');
+        Schema::dropIfExists('useranalysis');
+        Schema::dropIfExists('withdraw');
+        Schema::dropIfExists('requests');
+        Schema::dropIfExists('requeststatus');
+        Schema::dropIfExists('requesttype');
+        Schema::dropIfExists('bankdata');
+        Schema::dropIfExists('balance');
+        Schema::dropIfExists('users');
+
     }
 }
