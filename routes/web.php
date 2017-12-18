@@ -11,8 +11,12 @@
 |
 */
 
+
+Route::get('/', 'MainController@index');
+
+/*
 Route::get('/', function () {
-    return view('index');
+    return MainController::;
 });
 
-
+*/

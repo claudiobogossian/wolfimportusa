@@ -8,6 +8,13 @@ class MainController extends Controller
 {
 	public function index()
 	{
-		return view('welcome');
+	   if (!$request->session()->has('users')) {
+		return view('sigin');    
+	   }
+		else
+		{
+			return view('index');    
+		}
+
 	}
 }

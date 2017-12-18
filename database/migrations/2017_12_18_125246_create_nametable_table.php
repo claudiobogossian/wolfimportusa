@@ -35,6 +35,7 @@ class CreateNametableTable extends Migration
             $table->string('document');
             $table->date('birthdate');
             $table->date('registrydate');
+            $table->string('password');
 	    
         });
 	Schema::create('balance', function (Blueprint $table) {
