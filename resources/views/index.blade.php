@@ -1,11 +1,6 @@
- <! 
-  DOCTYPE html>
-  <html>
-      <head>
-          <meta charset="UTF-8">
-          <title>Minha Primeira Aplicação Laravel</title>
-      </head>
+@extends('layouts.default')
+@section('content')
       <body>
-          <h1>Olá Mundo!</h1>
+          <h1>Login!</h1>
       </body>
-  </html>
+@stop

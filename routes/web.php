@@ -14,6 +14,8 @@
 
 Route::get('/', 'MainController@index');
 
+Route::post('/login', 'LoginController@authenticate');
+
 /*
 Route::get('/', function () {
     return MainController::;
