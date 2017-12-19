@@ -16,6 +16,8 @@ Route::get('/', 'MainController@index');
 
 Route::post('/login', 'LoginController@authenticate');
 
+Route::get('/register-form', 'UsersController@showRegisterForm');
+
 /*
 Route::get('/', function () {
     return MainController::;

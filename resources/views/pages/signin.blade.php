@@ -117,7 +117,7 @@
 												class="cfa-submit form-submit" value="Login" style="border-radius: 10px 10px 10px 10px; float: left; margin-left: 0px !important; "/>
 												
 											<input type="button" name="cfa-submit"
-												class="cfa-submit form-submit" value="Register" style="border-radius: 10px 10px 10px 10px; float: right;" onclick="window.location='/register'"/>
+												class="cfa-submit form-submit" value="Register" style="border-radius: 10px 10px 10px 10px; float: right;" onclick="window.location='/register-form'"/>
 										
 										</div>
 										

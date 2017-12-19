@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    //
+    public function showRegisterForm(Request $request)
+    {
+        return view('pages.register');
+    }
 }
