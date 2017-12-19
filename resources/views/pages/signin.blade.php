@@ -104,13 +104,17 @@
 									
 										<div id="loginDiv" style="width: 50%; margin: 0 auto;">
 											<p><span style="color: #ffcc00; font-size: 26px;">SIGN IN</span></p><br>
-											<div id="message"><span style="color: red; font-size: 16px;">{{ $message }}</p></div>
+											<div id="message"><span style="color: red; font-size: 16px;">
+											@if( ! empty($message))
+											 {{ $message }}
+											@endif
+											</p></div>
 											<p><input type="text" name="username" id="username" 
 												placeholder="Email" style="border-radius: 10px 10px 10px 10px; width: 100%; margin-bottom: 15px;"/></p><br>											<p><input type="password" name="password" id="password" 
 												placeholder="Password" style="border-radius: 10px 10px 10px 10px; width: 100%; margin-bottom: 15px;"/></p><br>
 												
 											<input type="submit" name="submit"
-												class="cfa-submit form-submit" value="Login" style="border-radius: 10px 10px 10px 10px;"/>
+												class="cfa-submit form-submit" value="Login" style="border-radius: 10px 10px 10px 10px; float: left; margin-left: 0px !important; "/>
 												
 											<input type="button" name="cfa-submit"
 												class="cfa-submit form-submit" value="Register" style="border-radius: 10px 10px 10px 10px; float: right;" onclick="window.location='/register'"/>
