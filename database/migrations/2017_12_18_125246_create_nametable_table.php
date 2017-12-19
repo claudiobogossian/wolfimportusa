@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -118,7 +119,18 @@ class CreateNametableTable extends Migration
 
         });
 
-
+	
+	    DB::table('users')->insert(
+	        array(
+	            'email' => 'claudio.bogossian@gmail.com',
+	            'firstname' => 'Claudio',
+	            'lastname' => 'Bogossian',
+	            'document' => '123456',
+	            'birthdate' => '1983/04/28',
+	            'registrydate' => '2017/04/28',
+	            'password' => md5('1234')
+	        )
+	    );
     }
 
     /**

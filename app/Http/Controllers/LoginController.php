@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -11,10 +12,21 @@ class LoginController extends Controller
         if (! $request->session()->has('users')) {
             
             $login = $request->input('username');
-            $password = $request->input('password');
+            $password = md5($request->input('password'));
             
+            $matchThese = ['email' => $login, 'password' => $password];
             
-            
+            $user=User::where($matchThese)->get();
+
+             if($user)
+             {
+                 return view('pages.signin', ['message' => 'Logged in']);
+                 
+             }
+             else
+             {
+                 return view('pages.signin',['message' => 'Invalid e-mail or password']);
+             }
         } else {
             return view('index');
         }
