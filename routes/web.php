@@ -18,6 +18,8 @@ Route::post('/login', 'LoginController@authenticate');
 
 Route::get('/register-form', 'UsersController@showRegisterForm');
 
+Route::post('/register', 'UsersController@register');
+
 /*
 Route::get('/', function () {
     return MainController::;

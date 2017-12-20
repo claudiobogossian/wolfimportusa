@@ -150,7 +150,7 @@
 
 			<div id="content" class="site-content container" style="padding-top: 60px;">
     			<div class="panel panel-default">
-    				<div class="panel-heading"></div>
+    				<div class="panel-heading" id="pageTitleDiv"></div>
     				<div class="panel-body">
         				<div id="primary" class="content-area">
         					<main id="main" class="site-main" role="main">
@@ -205,5 +205,17 @@
 	<script type='text/javascript' src='js/modernizr.min.js'></script>
 
 	<style id="smue-ce-private-styles" data-posts="" type="text/css"></style>
+	
+	<script>
+
+	if($('#pageTitle'))
+	{
+		
+		$(document).ready(function() { 
+		     $("#pageTitleDiv").html($('#pageTitle').val());
+		});
+	}
+
+	</script>
 </body>
 </html>
