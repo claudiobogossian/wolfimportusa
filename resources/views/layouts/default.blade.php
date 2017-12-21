@@ -74,16 +74,10 @@
 	href='css/bootstrap-grid.min.css' type='text/css' media='all' />
 <link rel='stylesheet' id='mpce-font-awesome-css'
 	href='css/font-awesome.min.css' type='text/css' media='all' />
-<script type='text/javascript'
-	src='https://code.jquery.com/jquery-1.11.1.js?ver=4.4.5'></script>
-<script type='text/javascript' src='js/wow.min.js'></script>
-<script type='text/javascript' src='js/main.js'></script>
-<script type='text/javascript' src='js/particles.min.js'></script>
+
 <!--[if lt IE 9]>
 <script type='text/javascript' src='js/html5.js'></script>
 <![endif]-->
-<script type='text/javascript' src='js/jquery.js'></script>
-<script type='text/javascript' src='js/jquery-migrate.min.js'></script>
 <link rel='https://api.w.org/' href='szp-json/' />
 <link rel="EditURI" type="application/rsd+xml" title="RSD"
 	href="xmlrpc.php?rsd" />
@@ -95,8 +89,16 @@
 
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+  
+  <script type='text/javascript' src='js/wow.min.js'></script>
+<script type='text/javascript' src='js/main.js'></script>
+<script type='text/javascript' src='js/particles.min.js'></script>
 
 <style type="text/css">
 .recentcomments a {
@@ -134,8 +136,16 @@
 					       
 				</div>
 			</header>
-			<div style="width: 100%; background-color: #666664; position: absolute; margin-left: -15px; margin-right: -15px;">
-    		 <div class="container" style="">
+			
+			<?php 
+			
+			
+			if ($request->session()->has('user')) {
+			
+			?>
+						
+			<div style="width: 100%; background-color: #666664; position: absolute; margin-left: -15px; margin-right: -15px;" id="menu">
+    		 <div class="container" style="" >
               <ul class="nav nav-pills">
                 <li class="active"><a href="#"><img src="img/menu/painel.png"></a></li>
                 <li><a href="#"><img src="img/menu/saque.png"></a></li>
@@ -144,9 +154,18 @@
                 <li><a href="#"><img src="img/menu/dadospagamento.png"></a></li>
                 <li><a href="#"><img src="img/menu/historico.png"></a></li>
               </ul>
+              <div class="col-sm-6">
+              		<?php 
+              		    $user = $request->session()->get("user");
+              		    
+              		    
+              		?>
+              </div>
             </div>
             </div>
 			<!-- .site-header -->
+			
+			<?php } ?>
 
 			<div id="content" class="site-content container" style="padding-top: 60px;">
     			<div class="panel panel-default">

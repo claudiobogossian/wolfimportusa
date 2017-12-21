@@ -108,7 +108,8 @@
 											@if( ! empty($message))
 											 {{ $message }}
 											@endif
-											</p></div>
+											</span>
+											</div>
 											<p><input type="text" name="username" id="username" 
 												placeholder="Email" style="border-radius: 10px 10px 10px 10px; width: 100%; margin-bottom: 15px;"/></p><br>											<p><input type="password" name="password" id="password" 
 												placeholder="Password" style="border-radius: 10px 10px 10px 10px; width: 100%; margin-bottom: 15px;"/></p><br>

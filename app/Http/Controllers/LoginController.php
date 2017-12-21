@@ -20,7 +20,10 @@ class LoginController extends Controller
 
              if($user)
              {
-                 return view('pages.signin', ['message' => 'Logged in']);
+                 
+                 $request->session()->put('user', $user);
+                 
+                 return view('index');
                  
              }
              else
