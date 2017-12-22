@@ -11,6 +11,7 @@
 }
 </style>
 
+
 @extends('layouts.default') @section('content')
 <div style="width: 50%; margin: 0 auto;">
 	<form id="userForm" class="form-horizontal" action="register"
@@ -30,7 +31,7 @@
 			<div class="col-sm-6">
 				<input name="email" type="email" class="form-control" id="email"
 					placeholder="Enter email"
-					value="<?php if($userdata) { echo $userdata->email; }  ?>" required>
+					value="<?php if(!empty($userdata)) { echo $userdata->email; }  ?>" required>
 				<div class="help-block with-errors "></div>
 			</div>
 
@@ -40,7 +41,7 @@
 			<div class="col-sm-6">
 				<input name="firstName" type="text" class="form-control"
 					id="firstName" placeholder="Enter first name"
-					value="<?php if($userdata) { echo $userdata->firstname; }  ?>"
+					value="<?php if(!empty($userdata)) { echo $userdata->firstname; }  ?>"
 					required>
 				<div class="help-block with-errors"></div>
 			</div>
@@ -50,7 +51,7 @@
 			<div class="col-sm-6">
 				<input name="lastName" type="text" class="form-control"
 					id="lastName" placeholder="Enter last name"
-					value="<?php if($userdata) { echo $userdata->lastname; }  ?>"
+					value="<?php if(!empty($userdata)) { echo $userdata->lastname; }  ?>"
 					required>
 				<div class="help-block with-errors"></div>
 			</div>
@@ -61,7 +62,7 @@
 				<div class='input-group date' id='datetimepicker'>
 					<input name="birthdate" type='text' class="form-control"
 						id="birthdate"
-						value="<?php if($userdata) { echo $userdata->birthdate; }  ?>"
+						value="<?php if(!empty($userdata)) { echo $userdata->birthdate; }  ?>"
 						required /> <span class="input-group-addon"> <span
 						class="glyphicon glyphicon-calendar"></span>
 					</span>
@@ -74,7 +75,7 @@
 			<div class="col-sm-6">
 				<input name="document" type="text" class="form-control"
 					id="document" placeholder="Enter document"
-					value="<?php if($userdata) { echo $userdata->document; }  ?>"
+					value="<?php if(!empty($userdata)) { echo $userdata->document; }  ?>"
 					required>
 				<div class="help-block with-errors"></div>
 			</div>
@@ -84,7 +85,7 @@
 			<div class="col-sm-6">
 				<input name="password" type="password" class="form-control" id="pwd"
 					placeholder="Enter password"
-					value="<?php if($userdata) { echo $userdata->password; }  ?>"
+					value="<?php if(!empty($userdata)) { echo $userdata->password; }  ?>"
 					required>
 				<div class="help-block with-errors"></div>
 			</div>

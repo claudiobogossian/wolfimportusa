@@ -137,15 +137,17 @@
 				</div>
 			</header>
 			
-			<?php 
 			
+						
+			<div style="width: 100%; background-color: #666664; position: absolute; margin-left: -15px; margin-right: -15px;" id="menu">
+    		 <div class="container" style="" >
+    		 <?php 
+			
+			$request=request();
 			
 			if ($request->session()->has('user')) {
 			
 			?>
-						
-			<div style="width: 100%; background-color: #666664; position: absolute; margin-left: -15px; margin-right: -15px;" id="menu">
-    		 <div class="container" style="" >
               <ul class="nav nav-pills">
                 <li class="active"><a href="#"><img src="img/menu/painel.png"></a></li>
                 <li><a href="#"><img src="img/menu/saque.png"></a></li>
@@ -161,11 +163,12 @@
               		    
               		?>
               </div>
+              <?php } ?>
             </div>
             </div>
 			<!-- .site-header -->
 			
-			<?php } ?>
+			
 
 			<div id="content" class="site-content container" style="padding-top: 60px;">
     			<div class="panel panel-default">
