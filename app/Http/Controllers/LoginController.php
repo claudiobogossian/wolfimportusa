@@ -36,7 +36,7 @@ class LoginController extends Controller
                  
                  $request->session()->put('loggeduser', $user);
                  
-                 return view('index');
+                 return redirect()->action('MainController@index');
                  
              }
              else
@@ -44,12 +44,13 @@ class LoginController extends Controller
                  return view('pages.signin',['message' => 'Invalid e-mail or password']);
              }
         } else {
-            return view('index');
+            return redirect()->action('MainController@index');
         }
     }
     
     public function logout(Request $request)
     {
         $request->session()->flush();
+        return redirect()->action('MainController@index');
     }
 }

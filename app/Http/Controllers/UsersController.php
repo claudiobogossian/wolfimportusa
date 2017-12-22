@@ -15,7 +15,7 @@ class UsersController extends Controller
         if (! $request->session()->has('loggeduser')) {
             return view('pages.register');
         } else {
-            return view('index');
+            return redirect()->action('MainController@index');
         }
         
     }
@@ -89,6 +89,6 @@ class UsersController extends Controller
         
       
         
-        return view('index');
+        return redirect()->action('MainController@index');
     }
 }

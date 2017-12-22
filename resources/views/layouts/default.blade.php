@@ -112,16 +112,17 @@
 	margin: 0 !important;
 }
 
-body
-{
-    font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
-    font-size: 12px;
+body {
+	font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana',
+		sans-serif;
+	font-size: 12px;
 }
 </style>
 </head>
 
 <body class="home page page-id-6 page-template-default">
 	<div id="page" class="site container-fluid">
+
 		<div class="site-inner">
 
 
@@ -170,8 +171,25 @@ body
 							<li><a href="#"><img src="img/menu/historico.png"></a></li>
 
 						</ul>
-						
+
 					</div>
+					<div class="btn-group" style="    padding-top: 10px; color: white;">
+						<button type="button" class="glyphicon glyphicon-user"
+							data-toggle="dropdown" aria-expanded="false" style="background-color: gray;">
+							<span class="caret"></span> <span class="sr-only">T</span>
+						</button>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Edit Profile</a></li>
+							<li class="divider"></li>
+							<li><a href="logout">Logout</a></li>
+						</ul>
+					</div>
+
+					<script>
+  $(function () {
+    $('.dropdown-toggle').dropdown();
+  }); 
+</script>
 
               
               <?php } ?>
