@@ -111,6 +111,12 @@
 	padding: 0 !important;
 	margin: 0 !important;
 }
+
+body
+{
+    font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;
+    font-size: 12px;
+}
 </style>
 </head>
 

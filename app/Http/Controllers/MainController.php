@@ -11,6 +11,10 @@ class MainController extends Controller
         if (! $request->session()->has('users')) {
             return view('pages.signin');
         } else {
+            
+            
+            
+            
             return view('index');
         }
     }

@@ -1,0 +1,12 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Investiment extends Model
+{
+    protected $table = 'investiment';	
+    protected $fillable = array('userid', 'value', 'initdate', 'enddate','planid','enabled','requestid');
+    public $timestamps = false;
+}

@@ -171,6 +171,22 @@ class CreateNametableTable extends Migration
 	            'name' => 'Denied'
 	        )
 	        );
+	    
+	    DB::table('plan')->insert(
+	        array(
+	            'id' => 1,
+	            'name' => '30 Days',
+	            'days' => 30
+	        )
+	        );
+	    
+	    DB::table('plan')->insert(
+	        array(
+	            'id' => 2,
+	            'name' => '60 Days',
+                'days' => 60
+	        )
+	        );
     }
 
     /**
