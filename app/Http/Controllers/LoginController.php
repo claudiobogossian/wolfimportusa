@@ -22,14 +22,16 @@ class LoginController extends Controller
 
             if($user)
              {
-                 
-                 $matchThese = ['userid' => $user->id];
-                 
-                 $userAnalysis = UserAnalysis::where($matchThese)->first();
-                 
-                 if(!$userAnalysis->enabled)
+                 if(!$user->isadmin)
                  {
-                     return view('pages.signin',['message' => 'User not evaluated yet.']);
+                     $matchThese = ['userid' => $user->id];
+                     
+                     $userAnalysis = UserAnalysis::where($matchThese)->first();
+                     
+                     if(!$userAnalysis->enabled)
+                     {
+                         return view('pages.signin',['message' => 'User not evaluated yet.']);
+                     }
                  }
                  
                  $request->session()->put('loggeduser', $user);
