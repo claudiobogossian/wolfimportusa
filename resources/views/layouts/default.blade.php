@@ -6,30 +6,29 @@
 <link rel="profile" href="http://gmpg.org/xfn/11">
 
 <style>
-
 #particles-js {
-    height: 250px !important;
+	height: 250px !important;
 }
-.header_img
-{
+
+.header_img {
 	padding-bottom: 0px !important;
 }
+
 .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover
-{
-    background-color: rgba(0,0,0,0.4) !important;
+	{
+	background-color: rgba(0, 0, 0, 0.4) !important;
 }
 
-.nav-pills>li>a:hover
-{
-    background-color: rgba(0,0,0,0.2) !important;
+.nav-pills>li>a:hover {
+	background-color: rgba(0, 0, 0, 0.2) !important;
 }
-.nav-pills a
-{
-    color:white;
+
+.nav-pills a {
+	color: white;
 }
-.nav-pills a 
-{
-    padding: 0px !important;
+
+.nav-pills a {
+	padding: 0px !important;
 }
 </style>
 
@@ -88,15 +87,21 @@
 <link rel='shortlink' href='' />
 
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
-  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-  
-  <script type='text/javascript' src='js/wow.min.js'></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css" />
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+<script type='text/javascript' src='js/wow.min.js'></script>
 <script type='text/javascript' src='js/main.js'></script>
 <script type='text/javascript' src='js/particles.min.js'></script>
 
@@ -118,7 +123,7 @@
 				<div data-stellar-background-ratio="0.5"
 					class="sm-row-fluid smue-row smue-row-parallax sme-dsbl-margin-left sme-dsbl-margin-right animated_bg"
 					style="background-image: url('images/banner.jpg'); height: 250px;">
-					
+
 					<div
 						class="sm-span12 smue-clmn  sme-dsbl-margin-left sme-dsbl-margin-right header_img"
 						style="height: 250px;">
@@ -129,69 +134,70 @@
 								<div class="smue-text-obj wow fadeInUp delay_05s">
 									<h3 style="text-align: center;">Wolf Imports USA</h3>
 								</div>
-								
+
 							</div>
 						</div>
 					</div>
-					       
+
 				</div>
 			</header>
-			
-			
+
+
+
+			<div
+				style="width: 100%; background-color: #666664; position: absolute; margin-left: -15px; margin-right: -15px;"
+				id="menu">
+				<div class="container" style="">
+    		 <?php
+    $request = request();
+    
+    if ($request->session()->has('loggeduser')) {
+        
+        ?>
+			<div class="col-sm-11">
+						<ul class="nav nav-pills">
+							<li class="active"><a href="#"><img src="img/menu/painel.png"></a></li>
+							<li><a href="#"><img src="img/menu/saque.png"></a></li>
+							<li><a href="#"><img src="img/menu/novoinvestimento.png"></a></li>
+							<li><a href="#"><img src="img/menu/reinvestimento.png"></a></li>
+							<li><a href="#"><img src="img/menu/dadospagamento.png"></a></li>
+							<li><a href="#"><img src="img/menu/historico.png"></a></li>
+
+						</ul>
 						
-			<div style="width: 100%; background-color: #666664; position: absolute; margin-left: -15px; margin-right: -15px;" id="menu">
-    		 <div class="container" style="" >
-    		 <?php 
-			
-			$request=request();
-			
-			if ($request->session()->has('user')) {
-			
-			?>
-              <ul class="nav nav-pills">
-                <li class="active"><a href="#"><img src="img/menu/painel.png"></a></li>
-                <li><a href="#"><img src="img/menu/saque.png"></a></li>
-                <li><a href="#"><img src="img/menu/novoinvestimento.png"></a></li>
-                <li><a href="#"><img src="img/menu/reinvestimento.png"></a></li>
-                <li><a href="#"><img src="img/menu/dadospagamento.png"></a></li>
-                <li><a href="#"><img src="img/menu/historico.png"></a></li>
-              </ul>
-              <div class="col-sm-6">
-              		<?php 
-              		    $user = $request->session()->get("user");
-              		    
-              		    
-              		?>
-              </div>
+					</div>
+
+              
               <?php } ?>
             </div>
-            </div>
+			</div>
 			<!-- .site-header -->
-			
-			
 
-			<div id="content" class="site-content container" style="padding-top: 60px;">
-    			<div class="panel panel-default">
-    				<div class="panel-heading" id="pageTitleDiv"></div>
-    				<div class="panel-body">
-        				<div id="primary" class="content-area">
-        					<main id="main" class="site-main" role="main">
-        		
-        					<article id="post-6"
-        						class="post-6 page type-page status-publish hentry">
-        
-        						<div class="entry-content">
-        							<div id="main" class="row">@yield('content')</div>
-        							<!-- .entry-content -->
-        					
-        					</article>
-        					<!-- #post-## --> </main>
-        					<!-- .site-main -->
-        				</div>
-        				
-    				</div>
-    				</div>
-    				<!-- .content-area -->
+
+
+			<div id="content" class="site-content container"
+				style="padding-top: 60px;">
+				<div class="panel panel-default">
+					<div class="panel-heading" id="pageTitleDiv"></div>
+					<div class="panel-body">
+						<div id="primary" class="content-area">
+							<main id="main" class="site-main" role="main">
+
+							<article id="post-6"
+								class="post-6 page type-page status-publish hentry">
+
+								<div class="entry-content">
+									<div id="main" class="row">@yield('content')</div>
+									<!-- .entry-content -->
+							
+							</article>
+							<!-- #post-## --> </main>
+							<!-- .site-main -->
+						</div>
+
+					</div>
+				</div>
+				<!-- .content-area -->
 
 
 			</div>
@@ -227,7 +233,7 @@
 	<script type='text/javascript' src='js/modernizr.min.js'></script>
 
 	<style id="smue-ce-private-styles" data-posts="" type="text/css"></style>
-	
+
 	<script>
 
 	if($('#pageTitle'))

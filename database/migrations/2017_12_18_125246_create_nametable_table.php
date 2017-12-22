@@ -37,6 +37,7 @@ class CreateNametableTable extends Migration
             $table->date('birthdate');
             $table->date('registrydate');
             $table->string('password');
+            $table->boolean('isadmin');
 	    
         });
 	Schema::create('balance', function (Blueprint $table) {
@@ -58,12 +59,12 @@ class CreateNametableTable extends Migration
         });
 	Schema::create('requesttype', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('name');
+            $table->string('name');
            
         });
 	Schema::create('requeststatus', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('name');
+            $table->string('name');
 
            
         });
@@ -128,9 +129,48 @@ class CreateNametableTable extends Migration
 	            'document' => '123456',
 	            'birthdate' => '1983/04/28',
 	            'registrydate' => '2017/04/28',
-	            'password' => md5('1234')
+	            'password' => md5('legiao'),
+	            'isadmin' => true
 	        )
 	    );
+	    
+	    DB::table('requesttype')->insert(
+	        array(
+	            'id' => 1,
+	            'name' => 'User Registration Request'
+	        )
+	        );
+	    DB::table('requesttype')->insert(
+	        array(
+	            'id' => 2,
+	            'name' => 'Investiment Request'
+	        )
+	        );
+	    DB::table('requesttype')->insert(
+	        array(
+	            'id' => 3,
+	            'name' => 'Withdraw Request'
+	        )
+	        );
+	    
+	    DB::table('requeststatus')->insert(
+	        array(
+	            'id' => 1,
+	            'name' => 'New'
+	        )
+	        );
+	    DB::table('requeststatus')->insert(
+	        array(
+	            'id' => 2,
+	            'name' => 'Accepted'
+	        )
+	        );
+	    DB::table('requeststatus')->insert(
+	        array(
+	            'id' => 3,
+	            'name' => 'Denied'
+	        )
+	        );
     }
 
     /**
