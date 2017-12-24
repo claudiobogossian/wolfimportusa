@@ -163,12 +163,12 @@ body {
         ?>
 			<div class="col-sm-11">
 						<ul class="nav nav-pills">
-							<li class="active"><a href="#"><img src="img/menu/painel.png"></a></li>
-							<li><a href="#"><img src="img/menu/saque.png"></a></li>
-							<li><a href="#"><img src="img/menu/novoinvestimento.png"></a></li>
-							<li><a href="#"><img src="img/menu/reinvestimento.png"></a></li>
-							<li><a href="#"><img src="img/menu/dadospagamento.png"></a></li>
-							<li><a href="#"><img src="img/menu/historico.png"></a></li>
+							<li id="painel" class="active"><a href="index.php"><img src="img/menu/painel.png"></a></li>
+							<li id="saque"><a href="withdraw-form"><img src="img/menu/saque.png"></a></li>
+							<li id="novoinvestimento"><a href="#"><img src="img/menu/novoinvestimento.png"></a></li>
+							<li id="reinvestimento"><a href="#"><img src="img/menu/reinvestimento.png"></a></li>
+							<li id="dadospagamento"><a href="#"><img src="img/menu/dadospagamento.png"></a></li>
+							<li id="historico"><a href="#"><img src="img/menu/historico.png"></a></li>
 
 						</ul>
 
@@ -265,6 +265,22 @@ body {
 		
 		$(document).ready(function() { 
 		     $("#pageTitleDiv").html($('#pageTitle').val());
+		});
+	}
+
+	if($('#selectedTab'))
+	{
+		
+		$(document).ready(function() {
+    
+		     $("#painel").attr('class',"");
+		     $("#saque").attr('class',"");
+		     $("#novoinvestimento").attr('class',"");
+		     $("#reinvestimento").attr('class',"");
+		     $("#dadospagamento").attr('class',"");
+		     $("#historico").attr('class',"");
+
+			$($('#selectedTab').val()).attr('class',"active");
 		});
 	}
 

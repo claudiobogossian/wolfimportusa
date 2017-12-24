@@ -1,3 +1,4 @@
+<input type="hidden" value="#painel" id="selectedTab" />
 @extends('layouts.default') @section('content')
 
  		 <?php

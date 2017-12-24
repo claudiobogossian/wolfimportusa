@@ -22,6 +22,10 @@ Route::get('/register-form', 'UsersController@showRegisterForm');
 
 Route::post('/register', 'UsersController@register');
 
+Route::get('/withdraw-form', 'WithdrawController@showWithdrawForm');
+
+Route::post('/withdraw', 'WithdrawController@createWithdrawRequest');
+
 /*
 Route::get('/', function () {
     return MainController::;

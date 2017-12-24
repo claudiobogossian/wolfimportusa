@@ -82,7 +82,6 @@ class CreateNametableTable extends Migration
 	Schema::create('withdraw', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
-            $table->date('enddate');
             $table->integer('requestid')->unsigned();
             $table->integer('userid')->unsigned();
             $table->decimal('value');
