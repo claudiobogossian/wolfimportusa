@@ -165,9 +165,9 @@ body {
 						<ul class="nav nav-pills">
 							<li id="painel" class="active"><a href="index.php"><img src="img/menu/painel.png"></a></li>
 							<li id="saque"><a href="withdraw-form"><img src="img/menu/saque.png"></a></li>
-							<li id="novoinvestimento"><a href="#"><img src="img/menu/novoinvestimento.png"></a></li>
-							<li id="reinvestimento"><a href="#"><img src="img/menu/reinvestimento.png"></a></li>
-							<li id="dadospagamento"><a href="#"><img src="img/menu/dadospagamento.png"></a></li>
+							<li id="novoinvestimento"><a href="investiment-form"><img src="img/menu/novoinvestimento.png"></a></li>
+							<li id="reinvestimento"><a href="reinvestment-form"><img src="img/menu/reinvestimento.png"></a></li>
+							<li id="dadospagamento"><a href="bankdata-form"><img src="img/menu/dadospagamento.png"></a></li>
 							<li id="historico"><a href="#"><img src="img/menu/historico.png"></a></li>
 
 						</ul>

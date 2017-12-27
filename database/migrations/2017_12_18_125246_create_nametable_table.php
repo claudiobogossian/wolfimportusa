@@ -51,8 +51,11 @@ class CreateNametableTable extends Migration
             $table->increments('id');
             $table->integer('userid')->unsigned();
             $table->integer('bankid');
+            $table->string('fullname');
+            $table->integer('document');
             $table->string('agency');
             $table->string('account');
+            $table->integer('type');
             $table->boolean('enabled');
 	    $table->foreign('userid')->references('id')->on('users');
 
@@ -108,8 +111,6 @@ class CreateNametableTable extends Migration
             $table->increments('id');
             $table->integer('userid')->unsigned();
             $table->decimal('value');
-            $table->date('initdate');
-            $table->date('enddate');
             $table->integer('planid')->unsigned();
             $table->boolean('enabled');
             $table->integer('requestid')->unsigned();

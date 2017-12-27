@@ -1,5 +1,5 @@
 <input type="hidden" value="Withdraw" id="pageTitle" />
-<input type="hidden" value="#saque" id="selectedTab" />
+<input type="hidden" value="#reinvestimento" id="selectedTab" />
 
 <style>
 .help-block>ul>li {
@@ -24,12 +24,12 @@
 
 <div style="width: 80%; margin: 0 auto;">
 	<div class="panel panel-default">
-		<div class="panel-heading">New withdraw request:</div>
+		<div class="panel-heading">New reinvestment request:</div>
 		<div class="panel-body">
-			<form id="withdrawForm" class="form-horizontal" action="withdraw"
+			<form id="investmentForm" class="form-horizontal" action="reinvestment"
 				role="form" data-toggle="validator" method="POST">
 				<div class="form-group">
-					<div class="col-sm-6">Create a withdraw request bellow:</div>
+					<div class="col-sm-6">Create a reinvestment request bellow:</div>
 					<div class="col-sm-4"></div>
 					<div class="col-sm-6">
 						<div id="message">
@@ -40,18 +40,34 @@
 
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-4" for="email">Value:</label>
+					<label class="control-label col-sm-3" for="investimentValue">Value:</label>
 					<div class="row">
 						<div class="col-sm-4">
-							<input name="withdrawValue" type="text" class="form-control"
-								id="withdrawValue" placeholder="Enter value"
+							<input name="investimentValue" type="text" class="form-control"
+								id="investimentValue" placeholder="Enter value"
 								value="<?php echo $balance;  ?>"
 								required>
-							<div class="help-block with-errors "></div>
+							
 
 						</div>
+						<label class="control-label col-sm-1" for="plan">Plan:</label>
+						<div class="col-sm-2">
+							<select name="plan" class="form-control">
+								<?php 
+								if (! empty($plans)) {
+								    foreach ($plans as $plan) {
+								?>
+								<option value="<?php echo $plan->id?>">
+									<?php echo $plan->name?>
+								</option>
+								<?php }
+								    }?>
+							</select>
+						</div>
+						<div class="help-block with-errors "></div>
 					</div>
-					<label class="control-label col-sm-4" for="email">Current account:</label>
+					
+					<label class="control-label col-sm-3" for="email">Current account:</label>
 					<div class="row">
 						<div class="col-sm-4">
 
@@ -62,7 +78,7 @@
 					</div>
 
 				</div>
-				<div>
+				<div >
 					<button type="submit" class="btn btn-default pull-right"
 						style="margin-right: 50px;">Request</button>
 				</div>
@@ -71,41 +87,7 @@
 	</div>
 
 
-	<div class="panel panel-default">
-		<div class="panel-heading">Withdraw History:</div>
-		<div class="panel-body">
-
-			<div class="container" style="width: 100%;">
-				<table class="table table-bordered table-striped">
-					<tr>
-						<th>ID</th>
-						<th>Value</th>
-						<th>Status</th>
-						<th>Date</th>
-					</tr>
-					<?php
-    
-    if (! empty($withdraws)) {
-        foreach ($withdraws as $withdraw) {
-            ?>
-					 <tr>
-						<td><?php echo $withdraw->id ?></td>
-						<td><?php echo $withdraw->value ?></td>
-						<td><?php echo $withdraw->name ?></td>
-						<td><?php echo $withdraw->date ?></td>
-					</tr>
-					        <?php
-        }
-    }
-    
-    ?>
-					
-				</table>
-			</div>
-
-		</div>
-	</div>
-
+	
 
 
 
@@ -119,7 +101,7 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-    $("#withdrawValue").inputmask('currency', {
+    $("#investimentValue").inputmask('currency', {
                 'alias': 'numeric',
                 'groupSeparator': ',',
                 'autoGroup': true,
@@ -131,7 +113,9 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
+
+
+ $(document).ready(function(){
     $("#currentBalance").inputmask('currency', {
                 'alias': 'numeric',
                 'groupSeparator': ',',
@@ -141,10 +125,10 @@ $(document).ready(function(){
                 'allowMinus': false,
                 'placeholder': ''
     });
-});
+}); 
 
 
- $('#withdrawForm').validator();
+ $('#investimentForm').validator();
  
 </script>
 

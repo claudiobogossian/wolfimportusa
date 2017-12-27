@@ -1,5 +1,5 @@
 <input type="hidden" value="Withdraw" id="pageTitle" />
-<input type="hidden" value="#saque" id="selectedTab" />
+<input type="hidden" value="#novoinvestimento" id="selectedTab" />
 
 <style>
 .help-block>ul>li {
@@ -24,12 +24,12 @@
 
 <div style="width: 80%; margin: 0 auto;">
 	<div class="panel panel-default">
-		<div class="panel-heading">New withdraw request:</div>
+		<div class="panel-heading">New investiment request:</div>
 		<div class="panel-body">
-			<form id="withdrawForm" class="form-horizontal" action="withdraw"
+			<form id="investimentForm" class="form-horizontal" action="investiment"
 				role="form" data-toggle="validator" method="POST">
 				<div class="form-group">
-					<div class="col-sm-6">Create a withdraw request bellow:</div>
+					<div class="col-sm-6">Create a investiment request bellow:</div>
 					<div class="col-sm-4"></div>
 					<div class="col-sm-6">
 						<div id="message">
@@ -40,29 +40,30 @@
 
 				</div>
 				<div class="form-group">
-					<label class="control-label col-sm-4" for="email">Value:</label>
+					<label class="control-label col-sm-4" for="investimentValue">Value:</label>
 					<div class="row">
 						<div class="col-sm-4">
-							<input name="withdrawValue" type="text" class="form-control"
-								id="withdrawValue" placeholder="Enter value"
-								value="<?php echo $balance;  ?>"
+							<input name="investimentValue" type="text" class="form-control"
+								id="investimentValue" placeholder="Enter value"
+								value="0"
 								required>
 							<div class="help-block with-errors "></div>
 
 						</div>
 					</div>
-					<label class="control-label col-sm-4" for="email">Current account:</label>
+					
+					<!-- label class="control-label col-sm-4" for="email">Current account:</label>
 					<div class="row">
-						<div class="col-sm-4">
+						<div class="col-sm-2">
 
 							<input id="currentBalance" name="currentBalance" type="text" class="form-control"
-								value="<?php echo $balance;  ?>"
+								value="<?php //echo $balance;  ?>"
 								style="color: green;" readonly="readonly">
 						</div>
-					</div>
+					</div -->
 
 				</div>
-				<div>
+				<div >
 					<button type="submit" class="btn btn-default pull-right"
 						style="margin-right: 50px;">Request</button>
 				</div>
@@ -72,7 +73,7 @@
 
 
 	<div class="panel panel-default">
-		<div class="panel-heading">Withdraw History:</div>
+		<div class="panel-heading">Investiment Request History:</div>
 		<div class="panel-body">
 
 			<div class="container" style="width: 100%;">
@@ -82,17 +83,19 @@
 						<th>Value</th>
 						<th>Status</th>
 						<th>Date</th>
+						<th>Plan</th>
 					</tr>
 					<?php
     
-    if (! empty($withdraws)) {
-        foreach ($withdraws as $withdraw) {
+    if (! empty($investiments)) {
+        foreach ($investiments as $investiment) {
             ?>
 					 <tr>
-						<td><?php echo $withdraw->id ?></td>
-						<td><?php echo $withdraw->value ?></td>
-						<td><?php echo $withdraw->name ?></td>
-						<td><?php echo $withdraw->date ?></td>
+						<td><?php echo $investiment->id ?></td>
+						<td><?php echo $investiment->value ?></td>
+						<td><?php echo $investiment->name ?></td>
+						<td><?php echo $investiment->date ?></td>
+						<td><?php echo $investiment->planname ?></td>
 					</tr>
 					        <?php
         }
@@ -119,7 +122,7 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-    $("#withdrawValue").inputmask('currency', {
+    $("#investimentValue").inputmask('currency', {
                 'alias': 'numeric',
                 'groupSeparator': ',',
                 'autoGroup': true,
@@ -131,7 +134,7 @@ $(document).ready(function(){
     });
 });
 
-$(document).ready(function(){
+/* $(document).ready(function(){
     $("#currentBalance").inputmask('currency', {
                 'alias': 'numeric',
                 'groupSeparator': ',',
@@ -141,10 +144,10 @@ $(document).ready(function(){
                 'allowMinus': false,
                 'placeholder': ''
     });
-});
+}); */
 
 
- $('#withdrawForm').validator();
+ $('#investimentForm').validator();
  
 </script>
 

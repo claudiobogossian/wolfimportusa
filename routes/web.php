@@ -26,6 +26,18 @@ Route::get('/withdraw-form', 'WithdrawController@showWithdrawForm');
 
 Route::post('/withdraw', 'WithdrawController@createWithdrawRequest');
 
+Route::get('/investiment-form', 'InvestimentController@showInvestimentForm');
+
+Route::post('/investiment', 'InvestimentController@createInvestimentRequest');
+
+Route::get('/reinvestment-form', 'ReinvestmentController@showReinvestmentForm');
+
+Route::post('/reinvestment', 'ReinvestmentController@createReinvestmentRequest');
+
+Route::get('/bankdata-form', 'BankDataController@showBankDataForm');
+
+Route::post('/updatebankdata', 'BankDataController@updateBankData');
+
 /*
 Route::get('/', function () {
     return MainController::;
