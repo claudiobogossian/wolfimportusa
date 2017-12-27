@@ -129,10 +129,23 @@ class CreateNametableTable extends Migration
 	            'document' => '123456',
 	            'birthdate' => '1983/04/28',
 	            'registrydate' => '2017/04/28',
-	            'password' => md5('legiao'),
+	            'password' => md5('123456'),
 	            'isadmin' => true
 	        )
 	    );
+	    
+	    DB::table('users')->insert(
+	        array(
+	            'email' => 'jetimports@yahoo.com.br',
+	            'firstname' => 'Alexandre',
+	            'lastname' => 'Brito',
+	            'document' => '123456',
+	            'birthdate' => '1983/04/28',
+	            'registrydate' => '2017/04/28',
+	            'password' => md5('123456'),
+	            'isadmin' => true
+	        )
+	        );
 	    
 	    DB::table('requesttype')->insert(
 	        array(
