@@ -40,6 +40,8 @@ Route::post('/updatebankdata', 'BankDataController@updateBankData');
 
 Route::get('/history', 'HistoryController@showHistory');
 
+Route::post('/updateuser', 'UsersController@update');
+
 /*
 Route::get('/', function () {
     return MainController::;

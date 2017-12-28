@@ -15,7 +15,11 @@ class UsersController extends Controller
         if (! $request->session()->has('loggeduser')) {
             return view('pages.register');
         } else {
-            return redirect()->action('MainController@index');
+            $user = $request->session()->get('loggeduser');
+            
+            return view('pages.register', ['update' => true,
+                'userdata' => $user
+            ]);
         }
         
     }
@@ -90,5 +94,47 @@ class UsersController extends Controller
       
         
         return redirect()->action('MainController@index');
+    }
+    
+    public function update(Request $request)
+    {
+        $email = $request->input('email');
+        $firstName = $request->input('firstName');
+        $lastName = $request->input('lastName');
+        $birthdate = $request->input('birthdate');
+        $document = $request->input('document');
+        $password = md5($request->input('password'));
+        
+        $user = $request->session()->get('loggeduser');
+        
+        $user->email = $email;
+        $user->firstname = $firstName;
+        $user->lastname = $lastName;
+        $user->document = $document;
+        $user->password = $password;
+        $user->isadmin = false;
+        
+        $date = Carbon::createFromFormat('d/m/Y',$birthdate);
+        
+        $user->birthdate = $date;
+        
+        $user->registrydate = date('Y\-m\-d\ h:i:s');
+        
+        DB::beginTransaction();
+       
+        try {
+            $user->save();
+        }
+        catch(\Exception $e)
+        {
+            DB::rollback();
+        }
+        
+        
+        DB::commit();
+    
+        return view('pages.register',['update' => true,
+            'userdata' => $user
+        ]);
     }
 }

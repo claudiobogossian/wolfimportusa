@@ -17,6 +17,7 @@ class VerifyCsrfToken extends Middleware
         '/withdraw',
         '/investiment',
         '/reinvestment',
-        '/updatebankdata'
+        '/updatebankdata',
+        '/updateuser'
     ];
 }

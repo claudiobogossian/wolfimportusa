@@ -179,7 +179,7 @@ body {
 							<span class="caret"></span> <span class="sr-only">T</span>
 						</button>
 						<ul class="dropdown-menu" role="menu">
-							<li><a href="#">Edit Profile</a></li>
+							<li><a href="register-form">Edit Profile</a></li>
 							<li class="divider"></li>
 							<li><a href="logout">Logout</a></li>
 						</ul>
