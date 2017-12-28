@@ -38,6 +38,8 @@ Route::get('/bankdata-form', 'BankDataController@showBankDataForm');
 
 Route::post('/updatebankdata', 'BankDataController@updateBankData');
 
+Route::get('/history', 'HistoryController@showHistory');
+
 /*
 Route::get('/', function () {
     return MainController::;

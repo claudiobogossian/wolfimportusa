@@ -168,7 +168,7 @@ body {
 							<li id="novoinvestimento"><a href="investiment-form"><img src="img/menu/novoinvestimento.png"></a></li>
 							<li id="reinvestimento"><a href="reinvestment-form"><img src="img/menu/reinvestimento.png"></a></li>
 							<li id="dadospagamento"><a href="bankdata-form"><img src="img/menu/dadospagamento.png"></a></li>
-							<li id="historico"><a href="#"><img src="img/menu/historico.png"></a></li>
+							<li id="historico"><a href="history"><img src="img/menu/historico.png"></a></li>
 
 						</ul>
 
