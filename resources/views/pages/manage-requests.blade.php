@@ -15,6 +15,7 @@ td
 {
     vertical-align: middle !important;
 }
+
 </style>
 
 @extends('layouts.default') @section('content')
@@ -37,8 +38,8 @@ td
 				<table class="table table-bordered table-striped">
 					<tr>
 						<th>ID</th>
+						<th>E-Mail</th>
 						<th>Date</th>
-						<th>Type</th>
 						<th>Status</th>
 						<th>Percent</th>
 						<th>Action</th>
@@ -52,8 +53,8 @@ td
 					
 					<tr>
 						<td><?php echo $ur->id ?></td>
+						<td><?php echo $ur->email ?></td>
 						<td><?php echo $ur->date ?></td>
-						<td><?php echo $ur->requesttypename ?></td>
 						<td><select class="form-control" name="requeststatusid">
 							<?php
             if (! empty($requeststatus)) {
@@ -112,7 +113,6 @@ td
 					<tr>
 						<th>ID</th>
 						<th>Date</th>
-						<th>Type</th>
 						<th>Status</th>
 						<th>Value</th>
 						<th>Action</th>
@@ -128,7 +128,6 @@ td
 					<tr>
 						<td><?php echo $ir->id ?></td>
 						<td><?php echo $ir->date ?></td>
-						<td><?php echo $ir->requesttypename ?></td>
 						<td><select class="form-control" name="requeststatusid">
 							<?php
             if (! empty($requeststatus)) {
@@ -185,7 +184,6 @@ td
 					<tr>
 						<th>ID</th>
 						<th>Date</th>
-						<th>Type</th>
 						<th>Status</th>
 						<th>Value</th>
 						<th>Action</th>
@@ -200,7 +198,6 @@ td
 					<tr>
 						<td><?php echo $wr->id ?></td>
 						<td><?php echo $wr->date ?></td>
-						<td><?php echo $wr->requesttypename ?></td>
 						<td><select class="form-control" name="requeststatusid">
 							<?php
             if (! empty($requeststatus)) {

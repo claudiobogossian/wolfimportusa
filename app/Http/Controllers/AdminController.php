@@ -37,8 +37,9 @@ class AdminController extends Controller
             
             $usersrequest = DB::table('useranalysis')->join('requests', 'useranalysis.requestid', '=', 'requests.id')
             ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
+            ->join('users', 'useranalysis.userid', '=', 'users.id')
             ->join('requesttype', 'requests.requesttypeid', '=', 'requesttype.id')
-            ->select('requests.id', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid',  'requesttype.name as requesttypename','requesttype.id as requesttypeid','requests.date', 'useranalysis.investimentpercent')
+            ->select('requests.id', 'users.email', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid',  'requesttype.name as requesttypename','requesttype.id as requesttypeid','requests.date', 'useranalysis.investimentpercent')
             ->orderBy('requests.date')
             ->get();
             
