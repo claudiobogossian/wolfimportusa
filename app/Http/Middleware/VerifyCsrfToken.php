@@ -18,6 +18,7 @@ class VerifyCsrfToken extends Middleware
         '/investiment',
         '/reinvestment',
         '/updatebankdata',
-        '/updateuser'
+        '/updateuser',
+        '/updaterequest'
     ];
 }

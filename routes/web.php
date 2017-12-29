@@ -42,6 +42,10 @@ Route::get('/history', 'HistoryController@showHistory');
 
 Route::post('/updateuser', 'UsersController@update');
 
+Route::get('/manage-requests', 'AdminController@manageRequests');
+
+Route::post('/updaterequest', 'AdminController@updateRequest');
+
 /*
 Route::get('/', function () {
     return MainController::;

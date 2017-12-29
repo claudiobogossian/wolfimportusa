@@ -1,4 +1,4 @@
-<input type="hidden" value="Withdraw" id="pageTitle" />
+<input type="hidden" value="History" id="pageTitle" />
 <input type="hidden" value="#historico" id="selectedTab" />
 
 <style>
@@ -128,8 +128,8 @@
 					</tr>
 					<?php
     
-    if (! empty($withdrawrequest)) {
-        foreach ($withdrawrequest as $wr) {
+    if (! empty($withdrawsrequest)) {
+        foreach ($withdrawsrequest as $wr) {
             ?>
 					 <tr>
 						<td><?php echo $wr->id ?></td>

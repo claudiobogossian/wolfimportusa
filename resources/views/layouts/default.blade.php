@@ -180,6 +180,18 @@ body {
 						</button>
 						<ul class="dropdown-menu" role="menu">
 							<li><a href="register-form">Edit Profile</a></li>
+							<?php 
+							
+							$user = $request->session()->get('loggeduser');
+							
+							if ($user->isadmin)
+							{
+							    ?>
+							    <li><a href="manage-requests">Manage Requests</a></li>
+							    <?php 
+							}
+							
+							?>
 							<li class="divider"></li>
 							<li><a href="logout">Logout</a></li>
 						</ul>

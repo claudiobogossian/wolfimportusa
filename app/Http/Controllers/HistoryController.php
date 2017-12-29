@@ -22,6 +22,7 @@ class HistoryController extends Controller
             $withdrawsrequest = DB::table('withdraw')->join('requests', 'withdraw.requestid', '=', 'requests.id')
                 ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
                 ->join('requesttype', 'requests.requesttypeid', '=', 'requesttype.id')
+                ->where('withdraw.userid',$user->id)
                 ->select('requests.id', 'withdraw.value', 'requeststatus.name as requeststatusname', 'requesttype.name as requesttypename', 'requests.date')
                 ->orderBy('requests.date')
             ->get();
@@ -29,6 +30,7 @@ class HistoryController extends Controller
             $investimentsrequest = DB::table('investiment')->join('requests', 'investiment.requestid', '=', 'requests.id')
                 ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
                 ->join('requesttype', 'requests.requesttypeid', '=', 'requesttype.id')
+                ->where('investiment.userid',$user->id)
                 ->select('requests.id', 'investiment.value', 'requeststatus.name as requeststatusname', 'requesttype.name as requesttypename', 'requests.date')
                 ->orderBy('requests.date')
             ->get();
@@ -36,6 +38,7 @@ class HistoryController extends Controller
             $usersrequest = DB::table('useranalysis')->join('requests', 'useranalysis.requestid', '=', 'requests.id')
                 ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
                 ->join('requesttype', 'requests.requesttypeid', '=', 'requesttype.id')
+                ->where('useranalysis.userid',$user->id)
                 ->select('requests.id', 'requeststatus.name as requeststatusname', 'requesttype.name as requesttypename', 'requests.date')
                 ->orderBy('requests.date')
                 ->get();
