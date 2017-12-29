@@ -111,14 +111,14 @@ class CreateNametableTable extends Migration
             $table->increments('id');
             $table->integer('userid')->unsigned();
             $table->decimal('value');
-            $table->integer('planid')->unsigned();
+            $table->integer('durationindays');
+            $table->integer('investimentpercent');
             $table->boolean('enabled');
+            $table->boolean('done');
             $table->integer('requestid')->unsigned();
 	    $table->foreign('userid')->references('id')->on('users');
 	    $table->foreign('requestid')->references('id')->on('requests');
-	    $table->foreign('planid')->references('id')->on('plan');
-
-        });
+	    });
 
 	
 	    DB::table('users')->insert(
@@ -188,7 +188,7 @@ class CreateNametableTable extends Migration
 	    DB::table('plan')->insert(
 	        array(
 	            'id' => 1,
-	            'name' => '30 Days',
+	            'name' => '90 Days',
 	            'days' => 30
 	        )
 	        );
@@ -196,7 +196,7 @@ class CreateNametableTable extends Migration
 	    DB::table('plan')->insert(
 	        array(
 	            'id' => 2,
-	            'name' => '60 Days',
+	            'name' => '180 Days',
                 'days' => 60
 	        )
 	        );

@@ -31,7 +31,7 @@ td
 <div style="width: 80%; margin: 0 auto;">
 
 	<div class="panel panel-default">
-		<div class="panel-heading">User Request History:</div>
+		<div class="panel-heading">User Request:</div>
 		<div class="panel-body">
 
 			<div class="container" style="width: 100%;">
@@ -105,7 +105,7 @@ td
 
 
 	<div class="panel panel-default">
-		<div class="panel-heading">Investment Request History:</div>
+		<div class="panel-heading">Investment Request:</div>
 		<div class="panel-body">
 
 			<div class="container" style="width: 100%;">
@@ -176,7 +176,7 @@ td
 	</div>
 
 	<div class="panel panel-default">
-		<div class="panel-heading">Withdraw Request History:</div>
+		<div class="panel-heading">Withdraw Request:</div>
 		<div class="panel-body">
 
 			<div class="container" style="width: 100%;">
