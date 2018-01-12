@@ -112,6 +112,81 @@ if (empty($update)) {
 					<div class="help-block with-errors"></div>
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="control-label col-sm-4" for="pwd">Language:</label>
+				<div class="col-sm-6">
+					<select name="language" class="form-control" id="language" required>
+							<?php
+    if (! empty($languages)) {
+        foreach ($languages as $language) {
+            
+            $selected = "";
+            if (! empty($userdata)) {
+                if ($userdata->languageid == $language->id) {
+                    $selected = "selected=\"selected\"";
+                }
+            }
+            
+            ?>
+								<option value="<?php echo $language->id?>" <?php echo $selected?>>
+									<?php echo $language->name?>
+								</option>
+								<?php
+        
+}
+    }
+    ?>
+					</select>
+					<div class="help-block with-errors"></div>
+				</div>
+			</div>
+			
+<?php
+if (empty($update)) {
+    ?>			
+			
+			<div class="form-group">
+				<label class="control-label col-sm-4" for="pwd">Currency:</label>
+				<div class="col-sm-6">
+					<select name="currency" class="form-control" id="currency" required>
+							<?php
+    if (! empty($currencies)) {
+        foreach ($currencies as $currency) {
+            
+            $selected = "";
+            if (! empty($userdata)) {
+                if ($userdata->currencyid == $currency->id) {
+                    $selected = "selected=\"selected\"";
+                }
+            }
+            
+            ?>
+								
+								
+								
+								
+								<option value="<?php echo $currency->id?>"
+							<?php echo $selected?>>
+									<?php echo $currency->name?>
+									
+									(<?php echo $currency->prefix?>)
+								</option>
+								<?php
+        
+}
+    }
+    ?>
+					</select>
+					<div class="help-block with-errors"></div>
+				</div>
+			</div>
+			
+			
+		<?php
+        }
+    ?>	
+			
+			
 			<div class="col-sm-8">
 
 

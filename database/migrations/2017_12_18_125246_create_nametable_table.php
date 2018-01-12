@@ -25,8 +25,20 @@ class CreateNametableTable extends Migration
         Schema::dropIfExists('bankdata');
         Schema::dropIfExists('balance');
         Schema::dropIfExists('users');
+        Schema::dropIfExists('currency');
+        Schema::dropIfExists('language');
 
 
+        Schema::create('currency', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('prefix');
+        });
+        
+        Schema::create('language', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+        });
 
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
@@ -38,7 +50,10 @@ class CreateNametableTable extends Migration
             $table->date('registrydate');
             $table->string('password');
             $table->boolean('isadmin');
-	    
+            $table->integer('currencyid')->unsigned();
+            $table->integer('languageid')->unsigned();
+            $table->foreign('currencyid')->references('id')->on('currency');
+            $table->foreign('languageid')->references('id')->on('language');
         });
 	Schema::create('balance', function (Blueprint $table) {
             $table->integer('userid')->unsigned();
@@ -77,6 +92,7 @@ class CreateNametableTable extends Migration
             $table->integer('requesttypeid')->unsigned();
             $table->integer('requeststatusid')->unsigned();
             $table->boolean('approved');
+            $table->date('reviewdate')->nullable(true);
 	    $table->foreign('requesttypeid')->references('id')->on('requesttype');
 	    $table->foreign('requeststatusid')->references('id')->on('requeststatus');
 
@@ -121,6 +137,37 @@ class CreateNametableTable extends Migration
 	    });
 
 	
+	    DB::table('currency')->insert(
+	        array(
+	            'id' => 1,
+	            'name' => 'Real',
+	            'prefix' => 'R$'
+	        )
+	        );
+	    
+	    DB::table('currency')->insert(
+	        array(
+	            'id' => 2,
+	            'name' => 'Dollar',
+	            'prefix' => 'U$'
+	        )
+	        );
+	    
+	    DB::table('language')->insert(
+	        array(
+	            'id' => 1,
+	            'name' => 'Português Brasil'
+	        )
+	        );
+	    
+	    DB::table('language')->insert(
+	        array(
+	            'id' => 2,
+	            'name' => 'English'
+	        )
+	     );
+	
+	
 	    DB::table('users')->insert(
 	        array(
 	            'email' => 'claudio.bogossian@gmail.com',
@@ -130,7 +177,9 @@ class CreateNametableTable extends Migration
 	            'birthdate' => '1983/04/28',
 	            'registrydate' => '2017/04/28',
 	            'password' => md5('123456'),
-	            'isadmin' => true
+	            'isadmin' => true,
+	            'currencyid' => 1,
+	            'languageid' => 1
 	        )
 	    );
 	    
@@ -143,7 +192,9 @@ class CreateNametableTable extends Migration
 	            'birthdate' => '1983/04/28',
 	            'registrydate' => '2017/04/28',
 	            'password' => md5('123456'),
-	            'isadmin' => true
+	            'isadmin' => true,
+	            'currencyid' => 1,
+	            'languageid' => 1
 	        )
 	        );
 	    

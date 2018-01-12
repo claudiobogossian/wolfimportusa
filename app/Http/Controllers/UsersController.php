@@ -7,18 +7,28 @@ use App\User;
 use Carbon\Carbon;
 use App\UserAnalysis;
 use Illuminate\Support\Facades\DB;
+use App\Currency;
+use App\Language;
 
 class UsersController extends Controller
 {
     public function showRegisterForm(Request $request)
     {
+        $currencies=Currency::query()->get();
+        $languages=Language::query()->get();
+        
         if (! $request->session()->has('loggeduser')) {
-            return view('pages.register');
+            
+            
+            return view('pages.register',['currencies' => $currencies,
+                'languages' => $languages
+            ]);
         } else {
             $user = $request->session()->get('loggeduser');
             
             return view('pages.register', ['update' => true,
-                'userdata' => $user
+                'userdata' => $user, 'currencies' => $currencies,
+                'languages' => $languages
             ]);
         }
         
@@ -31,6 +41,8 @@ class UsersController extends Controller
         $birthdate = $request->input('birthdate');
         $document = $request->input('document');
         $password = md5($request->input('password'));
+        $currency = $request->input('currency');
+        $language = $request->input('language');
         
         $matchThese = ['email' => $email];
         
@@ -42,6 +54,8 @@ class UsersController extends Controller
         $newUser->lastname = $lastName;
         $newUser->document = $document;
         $newUser->password = $password;
+        $newUser->languageid = $language;
+        $newUser->currencyid = $currency;
         $newUser->isadmin = false;
         
         $date = Carbon::createFromFormat('d/m/Y',$birthdate);
@@ -70,6 +84,7 @@ class UsersController extends Controller
             $newRequest->date= date('Y\-m\-d\ h:i:s');
             $newRequest->requesttypeid=1;
             $newRequest->requeststatusid=1;
+            $newRequest->reviewdate=null;
             $newRequest->approved=false;
             
             $newRequest->save();
@@ -104,6 +119,8 @@ class UsersController extends Controller
         $birthdate = $request->input('birthdate');
         $document = $request->input('document');
         $password = md5($request->input('password'));
+        $currency = $request->input('currency');
+        $language = $request->input('language');
         
         $user = $request->session()->get('loggeduser');
         
@@ -112,6 +129,8 @@ class UsersController extends Controller
         $user->lastname = $lastName;
         $user->document = $document;
         $user->password = $password;
+        $user->languageid = $language;
+        $user->currencyid = $currency;
         $user->isadmin = false;
         
         $date = Carbon::createFromFormat('d/m/Y',$birthdate);
