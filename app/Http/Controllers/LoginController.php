@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\UserAnalysis;
 use Illuminate\Support\Facades\Session;
+use App\Currency;
 
 class LoginController extends Controller
 {
@@ -35,6 +36,15 @@ class LoginController extends Controller
                  }
                  
                  $request->session()->put('loggeduser', $user);
+                 
+                 $matchThese = ['id' => $user->currencyid];
+                 
+                 $currentCurrency = Currency::where($matchThese)->first();
+                 
+                 if($currentCurrency)
+                 {
+                     $request->session()->put('currentcurrency', $currentCurrency);
+                 }                                     
                  
                  return redirect()->action('MainController@index');
                  

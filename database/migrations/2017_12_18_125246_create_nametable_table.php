@@ -149,7 +149,7 @@ class CreateNametableTable extends Migration
 	        array(
 	            'id' => 2,
 	            'name' => 'Dollar',
-	            'prefix' => 'U$'
+	            'prefix' => 'US$'
 	        )
 	        );
 	    

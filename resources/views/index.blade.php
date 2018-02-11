@@ -7,7 +7,9 @@
     $loggeduser = $request->session()->get('loggeduser');
     
     ?>
-
+				<?php 
+				$request = request();
+				$currentcurrency = $request->session()->get('currentcurrency'); ?>
 <input type="hidden" value="Main Panel" id="pageTitle" />
 <div class="col-sm-4">
 	<div class="panel panel-default">
@@ -17,17 +19,17 @@
 				<div class="col-sm-6 control-label"
 					style="font-weight: bold; font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva', 'Verdana', sans-serif;">
 					Full Name</div>
-				<div class="col-sm-3 control-label" style="font-weight: bold;">
-					Status</div>
 				<div class="col-sm-2 control-label" style="font-weight: bold;">
+					Status</div>
+				<div class="col-sm-4 control-label" style="font-weight: bold;">
 					Currency</div>
 			</div>
 			<div class="row">
 				<div class="col-sm-6  control-label">
 				<?php echo  $loggeduser->firstname." ".$loggeduser->lastname; ?> 
 			</div>
-				<div class="col-sm-3  control-label">Active</div>
-				<div class="col-sm-2  control-label">TODO</div>
+				<div class="col-sm-2  control-label">Active</div>
+				<div class="col-sm-4  control-label"><?php echo $currentcurrency->name." (".$currentcurrency->prefix.")"?></div>
 			</div>
 			<br>
 			<div class="row">

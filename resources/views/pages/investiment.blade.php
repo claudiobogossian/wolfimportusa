@@ -40,8 +40,12 @@
 					</div>
 
 				</div>
+				<?php 
+				$request = request();
+				$currentcurrency = $request->session()->get('currentcurrency'); ?>
+				
 				<div class="form-group">
-					<label class="control-label col-sm-3" for="investimentValue">Value:</label>
+					<label class="control-label col-sm-3" for="investimentValue">Value (<?php echo $currentcurrency->prefix ?>):</label>
 					<div class="row">
 						<div class="col-sm-4">
 							<input name="investimentValue" type="text" class="form-control"
@@ -107,7 +111,7 @@
 						<div class="help-block with-errors "></div>
 					</div>
 
-					<label class="control-label col-sm-3" for="email">Current account:</label>
+					<label class="control-label col-sm-3" for="email">Current account (<?php echo $currentcurrency->prefix ?>):</label>
 					<div class="row">
 						<div class="col-sm-4">
 
@@ -147,7 +151,7 @@
             ?>
 					 <tr>
 						<td><?php echo $investiment->id ?></td>
-						<td><?php echo $investiment->value ?></td>
+						<td><?php echo $currentcurrency->prefix ?><?php echo $investiment->value ?></td>
 						<td><?php echo $investiment->name ?></td>
 						<td><?php echo $investiment->date ?></td>
 						<td><?php echo $investiment->durationindays ?></td>
@@ -182,6 +186,7 @@ $(document).ready(function(){
                 'digitsOptional': false,
                 'allowMinus': false,
                 'placeholder': '',
+                'prefix': '<?php echo $currentcurrency->prefix ?>',
                 'removeMaskOnSubmit': true
     });
 });
@@ -194,6 +199,7 @@ $(document).ready(function(){
                 'digits': 0,
                 'digitsOptional': false,
                 'allowMinus': false,
+                'prefix': '<?php echo $currentcurrency->prefix ?>',
                 'placeholder': ''
     });
 }); 

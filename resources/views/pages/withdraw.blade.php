@@ -39,8 +39,11 @@
 					</div>
 
 				</div>
+				<?php 
+				$request = request();
+				$currentcurrency = $request->session()->get('currentcurrency'); ?>
 				<div class="form-group">
-					<label class="control-label col-sm-4" for="email">Value:</label>
+					<label class="control-label col-sm-4" for="email">Value (<?php echo $currentcurrency->prefix; ?>):</label>
 					<div class="row">
 						<div class="col-sm-4">
 							<input name="withdrawValue" type="text" class="form-control"
@@ -51,7 +54,7 @@
 
 						</div>
 					</div>
-					<label class="control-label col-sm-4" for="email">Current account:</label>
+					<label class="control-label col-sm-4" for="email">Current account (<?php echo $currentcurrency->prefix; ?>):</label>
 					<div class="row">
 						<div class="col-sm-4">
 
@@ -90,7 +93,7 @@
             ?>
 					 <tr>
 						<td><?php echo $withdraw->id ?></td>
-						<td><?php echo $withdraw->value ?></td>
+						<td><?php echo $currentcurrency->prefix; ?><?php echo $withdraw->value ?></td>
 						<td><?php echo $withdraw->name ?></td>
 						<td><?php echo $withdraw->date ?></td>
 					</tr>
@@ -127,6 +130,7 @@ $(document).ready(function(){
                 'digitsOptional': false,
                 'allowMinus': false,
                 'placeholder': '',
+                'prefix': '<?php echo $currentcurrency->prefix ?>',
                 'removeMaskOnSubmit': true
     });
 });
@@ -139,6 +143,7 @@ $(document).ready(function(){
                 'digits': 0,
                 'digitsOptional': false,
                 'allowMinus': false,
+                'prefix': '<?php echo $currentcurrency->prefix ?>',
                 'placeholder': ''
     });
 });

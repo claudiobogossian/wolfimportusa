@@ -27,7 +27,9 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">User Request History:</div>
 		<div class="panel-body">
-
+				<?php 
+				$request = request();
+				$currentcurrency = $request->session()->get('currentcurrency'); ?>
 			<div class="container" style="width: 100%;">
 				<table class="table table-bordered table-striped">
 					<tr>
@@ -90,7 +92,7 @@
 						<td><?php echo $ir->date ?></td>
 						<td><?php echo $ir->requesttypename ?></td>
 						<td><?php echo $ir->requeststatusname ?></td>
-						<td><?php echo $ir->value ?></td>
+						<td><?php echo $currentcurrency->prefix ?><?php echo $ir->value ?></td>
 					</tr>
 					        <?php
         }
@@ -136,7 +138,7 @@
 						<td><?php echo $wr->date ?></td>
 						<td><?php echo $wr->requesttypename ?></td>
 						<td><?php echo $wr->requeststatusname ?></td>
-						<td><?php echo $wr->value ?></td>
+						<td><?php echo $currentcurrency->prefix ?><?php echo $wr->value ?></td>
 					</tr>
 					        <?php
         }
