@@ -25,6 +25,8 @@ class InvestimentController extends Controller
              $balances=Balance::where($matchThese)->get();
             $balance=0;
             
+            $userAnalysis=UserAnalysis::where($matchThese)->get();
+            
             if(!$balances->isEmpty())
             {
                 $balance=$balances->first()->value;
@@ -60,7 +62,8 @@ class InvestimentController extends Controller
                   'investiments' => $investiments,
                   'plans' => $plans,
                   'hasDone90' =>  $hasDone90,
-                  'hasDone180' =>   $hasDone180
+                  'hasDone180' =>   $hasDone180,
+                    'userAnalysis' => $userAnalysis->first()
                 ]);
         }
     }

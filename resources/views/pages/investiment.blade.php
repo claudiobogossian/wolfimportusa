@@ -42,7 +42,8 @@
 				</div>
 				<?php 
 				$request = request();
-				$currentcurrency = $request->session()->get('currentcurrency'); ?>
+				$currentcurrency = $request->session()->get('currentcurrency'); 
+				?>
 				
 				<div class="form-group">
 					<label class="control-label col-sm-3" for="investimentValue">Value (<?php echo $currentcurrency->prefix ?>):</label>
@@ -54,15 +55,16 @@
 
 
 						</div>
-						<label class="control-label col-sm-1" for="plan">Days:</label>
+						<label class="control-label col-sm-2" for="plan">Days (<?php  echo $userAnalysis->investimentpercent."%"; ?>):</label>
 						<div class="col-sm-2">
 						<?php
     if (! $hasDone90) {
         ?>
         						<select name="durationindays" class="form-control">
-								<option value="90">90 Days</option>
+								<option value="90">90 Days </option>
 
 							</select>
+							
 							<?php
     } else {
         
@@ -73,7 +75,9 @@
                                  <select name="durationindays"
 								class="form-control">
 								<option value="180">180 Days</option>
+								
 							</select>
+							<?php echo $userAnalysis->investimentpercent."%";  ?>
                                     
                                     
                                     
@@ -83,7 +87,7 @@
                                     
                                  	<input name="durationindays" id="durationindays"
 								type="text" class="form-control" />
-    					            
+    					            <?php echo $userAnalysis->investimentpercent."%";  ?>
     					            <script type="text/javascript">
 
                                     $(document).ready(function(){
