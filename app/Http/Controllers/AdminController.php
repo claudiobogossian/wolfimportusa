@@ -24,14 +24,14 @@ class AdminController extends Controller
             $withdrawsrequest = DB::table('withdraw')->join('requests', 'withdraw.requestid', '=', 'requests.id')
             ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
             ->join('requesttype', 'requests.requesttypeid', '=', 'requesttype.id')
-            ->select('requests.id', 'withdraw.value', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid',  'requesttype.name as requesttypename','requesttype.id as requesttypeid', 'requests.date')
+            ->select('requests.id', 'withdraw.value', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid',  'requesttype.name as requesttypename','requesttype.id as requesttypeid', 'requests.date', 'requests.reviewdate')
             ->orderBy('requests.date')
             ->get();
             
             $investimentsrequest = DB::table('investiment')->join('requests', 'investiment.requestid', '=', 'requests.id')
             ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
             ->join('requesttype', 'requests.requesttypeid', '=', 'requesttype.id')
-            ->select('requests.id', 'investiment.value', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid', 'requesttype.name as requesttypename',  'requesttype.id as requesttypeid','requests.date')
+            ->select('requests.id', 'investiment.value', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid', 'requesttype.name as requesttypename',  'requesttype.id as requesttypeid','requests.date', 'requests.reviewdate')
             ->orderBy('requests.date')
             ->get();
             
@@ -39,7 +39,7 @@ class AdminController extends Controller
             ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
             ->join('users', 'useranalysis.userid', '=', 'users.id')
             ->join('requesttype', 'requests.requesttypeid', '=', 'requesttype.id')
-            ->select('requests.id', 'users.email', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid',  'requesttype.name as requesttypename','requesttype.id as requesttypeid','requests.date', 'useranalysis.investimentpercent')
+            ->select('requests.id', 'users.email', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid',  'requesttype.name as requesttypename','requesttype.id as requesttypeid','requests.date', 'useranalysis.investimentpercent', 'requests.reviewdate')
             ->orderBy('requests.date')
             ->get();
             
@@ -116,6 +116,8 @@ class AdminController extends Controller
                 {
                     $request->approved=false;
                 }
+                
+                $request->reviewdate=date('Y\-m\-d\ h:i:s');
                 
                 $request->save();
                               

@@ -115,6 +115,7 @@ td
 						<th>Date</th>
 						<th>Status</th>
 						<th>Value</th>
+						<th>Aproval Date</th>
 						<th>Action</th>
 					</tr>
 					<?php
@@ -147,6 +148,7 @@ td
 							
 						</select></td>
 						<td><?php echo $ir->value ?></td>
+						<td><?php echo $ir->reviewdate ?></td>
 						<td  align="center">
 							<input type="hidden" name="requestid" value="<?php echo $ir->id?>">
 							<input type="hidden" name="requesttypeid" value="<?php echo $ir->requesttypeid?>">
@@ -186,6 +188,7 @@ td
 						<th>Date</th>
 						<th>Status</th>
 						<th>Value</th>
+						<th>Aproval Date</th>
 						<th>Action</th>
 					</tr>
 					<?php
@@ -219,6 +222,7 @@ td
 						<td>
 						<?php echo $wr->value ?>
 						</td>
+						<td><?php echo $wr->reviewdate ?></td>
 						<td align="center">
 						<input type="hidden" name="requesttypeid" value="<?php echo $wr->requesttypeid?>">
 							<input type="hidden" name="requestid" value="<?php echo $wr->id?>">
