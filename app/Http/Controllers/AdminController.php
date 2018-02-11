@@ -24,14 +24,18 @@ class AdminController extends Controller
             $withdrawsrequest = DB::table('withdraw')->join('requests', 'withdraw.requestid', '=', 'requests.id')
             ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
             ->join('requesttype', 'requests.requesttypeid', '=', 'requesttype.id')
-            ->select('requests.id', 'withdraw.value', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid',  'requesttype.name as requesttypename','requesttype.id as requesttypeid', 'requests.date', 'requests.reviewdate')
+            ->join('users', 'withdraw.userid', '=', 'users.id')
+            ->join('currency', 'users.currencyid', '=', 'currency.id')
+            ->select('requests.id', 'users.email', 'withdraw.value', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid',  'requesttype.name as requesttypename','requesttype.id as requesttypeid', 'requests.date', 'requests.reviewdate', 'currency.prefix as currencyprefix')
             ->orderBy('requests.date')
             ->get();
             
             $investimentsrequest = DB::table('investiment')->join('requests', 'investiment.requestid', '=', 'requests.id')
             ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
             ->join('requesttype', 'requests.requesttypeid', '=', 'requesttype.id')
-            ->select('requests.id', 'investiment.value', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid', 'requesttype.name as requesttypename',  'requesttype.id as requesttypeid','requests.date', 'requests.reviewdate')
+            ->join('users', 'investiment.userid', '=', 'users.id')
+            ->join('currency', 'users.currencyid', '=', 'currency.id')
+            ->select('requests.id', 'users.email','investiment.value', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid', 'requesttype.name as requesttypename',  'requesttype.id as requesttypeid','requests.date', 'requests.reviewdate', 'currency.prefix as currencyprefix')
             ->orderBy('requests.date')
             ->get();
             

@@ -112,6 +112,7 @@ td
 				<table class="table table-bordered table-striped">
 					<tr>
 						<th>ID</th>
+						<th>E-Mail</th>
 						<th>Date</th>
 						<th>Status</th>
 						<th>Value</th>
@@ -128,6 +129,7 @@ td
 					
 					<tr>
 						<td><?php echo $ir->id ?></td>
+						<td><?php echo $ir->email ?></td>
 						<td><?php echo $ir->date ?></td>
 						<td><select class="form-control" name="requeststatusid">
 							<?php
@@ -147,7 +149,7 @@ td
             ?>
 							
 						</select></td>
-						<td><?php echo $ir->value ?></td>
+						<td><?php echo $ir->currencyprefix ?><?php echo $ir->value ?></td>
 						<td><?php echo $ir->reviewdate ?></td>
 						<td  align="center">
 							<input type="hidden" name="requestid" value="<?php echo $ir->id?>">
@@ -185,6 +187,7 @@ td
 				<table class="table table-bordered table-striped">
 					<tr>
 						<th>ID</th>
+						<th>E-Mail</th>
 						<th>Date</th>
 						<th>Status</th>
 						<th>Value</th>
@@ -200,6 +203,7 @@ td
 					
 					<tr>
 						<td><?php echo $wr->id ?></td>
+						<td><?php echo $wr->email ?></td>
 						<td><?php echo $wr->date ?></td>
 						<td><select class="form-control" name="requeststatusid">
 							<?php
@@ -220,7 +224,7 @@ td
 							
 						</select></td>
 						<td>
-						<?php echo $wr->value ?>
+						<?php echo $wr->currencyprefix ?><?php echo $wr->value ?>
 						</td>
 						<td><?php echo $wr->reviewdate ?></td>
 						<td align="center">

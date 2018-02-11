@@ -36,18 +36,21 @@ class InvestimentController extends Controller
             ->join('requests', 'investiment.requestid', '=', 'requests.id')
             ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
             ->select('requests.id','investiment.value', 'requeststatus.name', 'requests.date', 'investiment.durationindays')
+            ->where('investiment.userid',$user->id)
             ->get();
             
             $plans = Plan::query()->get();
             
             $doneInvestiments90days = DB::table('investiment')
             ->where('investiment.durationindays',90)
+            ->where('investiment.userid',$user->id)
             ->where('investiment.done',true)->get();
             
             $hasDone90 = !$doneInvestiments90days->isEmpty();
             
             $doneInvestiments180days = DB::table('investiment')
             ->where('investiment.durationindays',180)
+            ->where('investiment.userid',$user->id)
             ->where('investiment.done',true)->get();
             
             $hasDone180 = !$doneInvestiments180days->isEmpty();
