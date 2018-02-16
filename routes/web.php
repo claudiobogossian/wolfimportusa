@@ -46,6 +46,17 @@ Route::get('/manage-requests', 'AdminController@manageRequests');
 
 Route::post('/updaterequest', 'AdminController@updateRequest');
 
+Route::get('/migrate', function () {
+    $migrate = Artisan::call('migrate');
+    echo "DB Migrated <br>";
+});
+    
+    
+Route::get('/migrate-reset', function () {
+    $migrate = Artisan::call('migrate:reset');
+    echo "DB Migrated <br>";
+});
+
 /*
 Route::get('/', function () {
     return MainController::;
