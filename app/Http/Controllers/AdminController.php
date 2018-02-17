@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\UserAnalysis;
+use App\Investiment;
 
 class AdminController extends Controller
 {
@@ -105,6 +106,8 @@ class AdminController extends Controller
                     $userAnalysis->save();
                 }
                 
+                
+                
                 $matchThese = ['id' => $requestid];
                 
                 $request = \App\Request::where($matchThese)->first();
@@ -115,6 +118,23 @@ class AdminController extends Controller
                 if($requeststatusid==2)
                 {
                     $request->approved=true;
+                    
+                    
+                    if($requesttypeid==2)
+                    {
+                        //Update investment due date
+                        $matchThese = ['requestid' => $requestid];
+                        $investment=Investiment::where($matchThese)->get();
+                        
+                        if($investment)
+                        {
+                            $currentDate = date('Y\-m\-d');
+                            $durationindays = ($investment->first()->durationindays-1);
+                            $dueDate=date('Y-m-d', strtotime($currentDate. ' + '.$durationindays.' days'));
+                            Investiment::where($matchThese)->update(['duedate' => $dueDate]);
+                        }
+                        
+                    }
                 }
                 else
                 {

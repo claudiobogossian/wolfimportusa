@@ -1,26 +1,26 @@
-Boa noite... desculpe a demora em responder as perguntas. segue....
+DONE 1	Adicionar valor minimo para investimentos 5000 reais ou 2000 dolares
+R: O site disponibilizará tanto em Dolares quanto em reais e o mínimo será sim 5000 reais de igual valor para dólar 
 
-1	Adicionar valor minimo para investimentos 5000 reais ou 2000 dolares
-R: COLOCAR R$5.000,00 E CONVERTER EM DOLAR A FRENTE 
-
-DONE 2	Permitir a definição de moeda a utilizar pelo usuário, com efeito em todas as telas q exibem valores.
+DONE 2	Permitir a
+ definição de moeda a utilizar pelo usuário, com efeito em todas as telas q exibem valores.
+R: SIM
 
 3	Permitir a definição da lingua q será usada pelo usuário, com efeito em todas as telas q exibem textos.
-R: SIM
+R: SIM 
 
 4	Adicionar calculo noturno do valor do saldo acrescido da porcentagem dividida pelos dias e adicionada ao saldo da conta do usuário 
-R: SIM
+R: CORRETO
 
-DONE 5	Guardar a data do aceite do investimento como inicio de contagem da furação do ciclo
+DONE 5	Guardar a data do aceite do  investimento como inicio de contagem da furação do ciclo
+R: SIM
 
 6	Adicionar restrição de criar novos investimentos durante um ciclo
-R: SIM, ATÉ FINALIZAR O SEGUNDO CICLO, APÓS ESTE CICLO O SISTEMA FICA ABERTO PARA ELE REINVESTIR O VALOR QUE QUISER E QUANTO TEMPO QUER.
+R: ISSO, RESTRINGIR
 
 DONE 7	Colocar a porcentagem do cliente na opção dos dias na aba de investimentos
-R: SIM
+R: EU COLOCAREI A % PARA CADA CLIENTE  
 
 8	Finalizar o resumo dos investimentos e o gráfico
-R: SIM
+R: CORRETO
 
-
-
+9	Enviar e-mails ao mudar status de requisições

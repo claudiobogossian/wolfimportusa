@@ -15,19 +15,6 @@ class CreateNametableTable extends Migration
     public function up()
     {
 
- Schema::dropIfExists('investiment');
-        Schema::dropIfExists('plan');
-        Schema::dropIfExists('useranalysis');
-        Schema::dropIfExists('withdraw');
-        Schema::dropIfExists('requests');
-        Schema::dropIfExists('requeststatus');
-        Schema::dropIfExists('requesttype');
-        Schema::dropIfExists('bankdata');
-        Schema::dropIfExists('balance');
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('currency');
-        Schema::dropIfExists('language');
-
 
         Schema::create('currency', function (Blueprint $table) {
             $table->increments('id');
@@ -55,13 +42,7 @@ class CreateNametableTable extends Migration
             $table->foreign('currencyid')->references('id')->on('currency');
             $table->foreign('languageid')->references('id')->on('language');
         });
-	Schema::create('balance', function (Blueprint $table) {
-            $table->integer('userid')->unsigned();
-            $table->date('date');
-            $table->decimal('value');
-	    $table->foreign('userid')->references('id')->on('users');
-	    $table->primary('userid');
-        });
+
 	Schema::create('bankdata', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('userid')->unsigned();
@@ -98,6 +79,15 @@ class CreateNametableTable extends Migration
 
            
         });
+	
+	    Schema::create('balance', function (Blueprint $table) {
+	        $table->integer('userid')->unsigned();
+	        $table->date('date');
+	        $table->decimal('value');
+	        $table->foreign('userid')->references('id')->on('users');
+	        $table->primary('userid');
+	    });
+	
 	Schema::create('withdraw', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
@@ -264,12 +254,14 @@ class CreateNametableTable extends Migration
         Schema::dropIfExists('plan');
         Schema::dropIfExists('useranalysis');
         Schema::dropIfExists('withdraw');
+        Schema::dropIfExists('balance');
         Schema::dropIfExists('requests');
         Schema::dropIfExists('requeststatus');
         Schema::dropIfExists('requesttype');
         Schema::dropIfExists('bankdata');
-        Schema::dropIfExists('balance');
         Schema::dropIfExists('users');
+        Schema::dropIfExists('currency');
+        Schema::dropIfExists('language');
 
     }
 }

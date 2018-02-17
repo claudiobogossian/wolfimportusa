@@ -71,6 +71,7 @@ class PropertiesSystem extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('properties');
+        Schema::dropIfExists('propertytype');
     }
 }
