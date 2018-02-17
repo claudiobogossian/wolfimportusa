@@ -21,3 +21,6 @@ R: SIM
 
 8	Finalizar o resumo dos investimentos e o gráfico
 R: SIM
+
+
+

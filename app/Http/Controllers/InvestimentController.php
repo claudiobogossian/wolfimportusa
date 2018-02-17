@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\UserAnalysis;
 use App\Balance;
 use App\Plan;
+use App\Properties;
 
 class InvestimentController extends Controller
 {
@@ -57,13 +58,43 @@ class InvestimentController extends Controller
             
             $hasDone180 = !$doneInvestiments180days->isEmpty();
             
+            
+            $currentcurrency=$request->session()->get('currentcurrency');
+            
+            
+            
+            if($currentcurrency->id==1)
+            {
+                $matchThese = ['name' => 'currency.reais.min.value'];
+                
+            } else if($currentcurrency->id==2)
+            {
+                $matchThese = ['name' => 'currency.dollar.min.value'];
+                
+            }
+            else
+            {
+                $matchThese = [];
+            }
+
+            $minValueProperty = Properties::where($matchThese)->get()->first();
+            
+            
+            $minValue =0;
+            
+            if($minValueProperty)
+            {
+                $minValue = $minValueProperty->value;
+            }
+             
             return view('pages.investiment',
                 [ 'balance' => $balance, 
                   'investiments' => $investiments,
                   'plans' => $plans,
                   'hasDone90' =>  $hasDone90,
                   'hasDone180' =>   $hasDone180,
-                    'userAnalysis' => $userAnalysis->first()
+                    'userAnalysis' => $userAnalysis->first(),
+                    'minValue' => $minValue
                 ]);
         }
     }

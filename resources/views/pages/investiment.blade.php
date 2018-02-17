@@ -55,7 +55,17 @@
 
 
 						</div>
-						<label class="control-label col-sm-2" for="plan">Days (<?php  echo $userAnalysis->investimentpercent."%"; ?>):</label>
+						<label class="control-label col-sm-2" for="plan">Days
+						 <?php 
+						 
+						 $user = $request->session()->get('loggeduser');
+						 
+						 if (!$user->isadmin)
+						 {
+						 
+						 	 echo "(".$userAnalysis->investimentpercent."%)"; 
+						 } 
+						?>:</label>
 						<div class="col-sm-2">
 						<?php
     if (! $hasDone90) {
@@ -77,7 +87,11 @@
 								<option value="180">180 Days</option>
 								
 							</select>
-							<?php echo $userAnalysis->investimentpercent."%";  ?>
+							<?php 
+							if (!$user->isadmin)
+							{
+							     echo $userAnalysis->investimentpercent."%"; 
+                            }?>
                                     
                                     
                                     
@@ -87,7 +101,12 @@
                                     
                                  	<input name="durationindays" id="durationindays"
 								type="text" class="form-control" />
-    					            <?php echo $userAnalysis->investimentpercent."%";  ?>
+    					            <?php
+    					            
+    					            if (!$user->isadmin)
+    					            {
+    					               echo $userAnalysis->investimentpercent."%";  
+                                    }?>
     					            <script type="text/javascript">
 
                                     $(document).ready(function(){
@@ -121,6 +140,15 @@
 
 							<input id="currentBalance" name="currentBalance" type="text"
 								class="form-control" value="<?php echo $balance;  ?>"
+								style="color: green;" readonly="readonly">
+						</div>
+					</div>
+					<label class="control-label col-sm-3" for="email">Minimal value to invest:</label>
+					<div class="row">
+					
+						<div class="col-sm-4">
+							 <input id="minValue" name="minValue" type="text"
+								class="form-control" value="<?php echo $minValue ?>"
 								style="color: green;" readonly="readonly">
 						</div>
 					</div>
@@ -191,12 +219,26 @@ $(document).ready(function(){
                 'allowMinus': false,
                 'placeholder': '',
                 'prefix': '<?php echo $currentcurrency->prefix ?>',
-                'removeMaskOnSubmit': true
+                'removeMaskOnSubmit': true,
+                'min': <?php echo $minValue ?> 
     });
 });
 
 $(document).ready(function(){
     $("#currentBalance").inputmask('currency', {
+                'alias': 'numeric',
+                'groupSeparator': ',',
+                'autoGroup': true,
+                'digits': 0,
+                'digitsOptional': false,
+                'allowMinus': false,
+                'prefix': '<?php echo $currentcurrency->prefix ?>',
+                'placeholder': ''
+    });
+}); 
+
+$(document).ready(function(){
+    $("#minValue").inputmask('currency', {
                 'alias': 'numeric',
                 'groupSeparator': ',',
                 'autoGroup': true,
