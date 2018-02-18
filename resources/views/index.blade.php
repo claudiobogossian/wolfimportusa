@@ -54,13 +54,13 @@
 			<div class="col-sm-4">
 				<div class="row control-label" style="font-weight: bold;">Active
 					Investiment</div>
-				<div class="row control-label">TODO</div><br>
+				<div class="row control-label"><?php echo $currentcurrency->prefix." ".$activeInvestimentsValue?></div><br>
 				<div class="row control-label" style="font-weight: bold;">Daily
 					Income</div>
-				<div class="row control-label">TODO</div><br>
+				<div class="row control-label"><?php echo $currentcurrency->prefix." ".$activeDailyIncome?></div><br>
 				<div class="row control-label" style="font-weight: bold;">
 					Accumulated Income</div>
-				<div class="row control-label">TODO</div><br>
+				<div class="row control-label"><?php echo $currentcurrency->prefix." ".$accumulatedIncome?></div><br>
 
 			</div>
 			<div class="col-sm-8 control-label">
