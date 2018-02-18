@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('calculate:balance')->everyMinute();
+        $schedule->command('calculate:balance')->daily();
     }
 
     /**

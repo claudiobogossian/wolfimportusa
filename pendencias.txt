@@ -20,7 +20,8 @@ R: ISSO, RESTRINGIR
 DONE 7	Colocar a porcentagem do cliente na opção dos dias na aba de investimentos
 R: EU COLOCAREI A % PARA CADA CLIENTE  
 
-8	Finalizar o resumo dos investimentos e o gráfico
+PARTIAL 8	Finalizar o resumo dos investimentos e o gráfico
+-> Resumo dos investimentos OK, faltando grafico
 R: CORRETO
 
 9	Enviar e-mails ao mudar status de requisições
