@@ -188,6 +188,7 @@ class CreateNametableTable extends Migration
 	        )
 	        );
 	    
+		    
 	    DB::table('requesttype')->insert(
 	        array(
 	            'id' => 1,
@@ -241,6 +242,9 @@ class CreateNametableTable extends Migration
                 'days' => 60
 	        )
 	        );
+	    
+	    
+	    
     }
 
     /**

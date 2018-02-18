@@ -8,7 +8,7 @@ R: SIM
 3	Permitir a definição da lingua q será usada pelo usuário, com efeito em todas as telas q exibem textos.
 R: SIM 
 
-4	Adicionar calculo noturno do valor do saldo acrescido da porcentagem dividida pelos dias e adicionada ao saldo da conta do usuário 
+DONE 4	Adicionar calculo noturno do valor do saldo acrescido da porcentagem dividida pelos dias e adicionada ao saldo da conta do usuário 
 R: CORRETO
 
 DONE 5	Guardar a data do aceite do  investimento como inicio de contagem da furação do ciclo

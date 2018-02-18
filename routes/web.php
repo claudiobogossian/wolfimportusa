@@ -57,6 +57,11 @@ Route::get('/migrate-reset', function () {
     echo "DB Migrated <br>";
 });
 
+    Route::get('/calculate-balance', function () {
+        $migrate = Artisan::call('calculate:balance');
+        echo "Calculated balance <br>";
+    });
+
 /*
 Route::get('/', function () {
     return MainController::;
