@@ -9,6 +9,7 @@ use App\UserAnalysis;
 use Illuminate\Support\Facades\DB;
 use App\Currency;
 use App\Language;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -106,7 +107,7 @@ class UsersController extends Controller
 
         DB::commit();
         
-      
+        UsersController::sendEmailNotifications($email,$firstName." ".$lastName);      
         
         return redirect()->action('MainController@index');
     }
@@ -156,4 +157,20 @@ class UsersController extends Controller
             'userdata' => $user
         ]);
     }
+    
+    private function sendEmailNotifications($email, $fullname)
+    {
+        Mail::send('email.newuser_admin', ['email' => $email, 'fullname' => $fullname], function ($message)
+        {
+            $message->from('noreply@wolfimportsusa.com', 'WolfImports USA');
+            $message->to('claudio.bogossian@gmail.com');
+        });
+        
+        Mail::send('email.newuser', ['email' => $email, 'fullname' => $fullname], function ($message) use ($email)
+        {
+            $message->from('noreply@wolfimportsusa.com', 'WolfImports USA');
+            $message->to($email);
+        });
+    }   
+
 }

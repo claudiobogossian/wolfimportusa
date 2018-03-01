@@ -1,0 +1,1 @@
+New user registered: <?php echo $fullname." (".$email.")" ?>
