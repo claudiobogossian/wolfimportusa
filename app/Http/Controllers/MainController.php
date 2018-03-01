@@ -32,7 +32,9 @@ class MainController extends Controller
                 foreach ($investiments as $investiment) {
                     $activeInvestimentsValue = $activeInvestimentsValue + $investiment->value;
                     
-                    $totalearning = $investiment->value * ($investiment->investimentpercent / 100);
+                    $numberofmonths = $investiment->durationindays/30;
+                    $totalperiodpercent = ($investiment->investimentpercent*$numberofmonths);
+                    $totalearning = $investiment->value * ( $totalperiodpercent / 100);
                     $dailyearning = $totalearning / $investiment->durationindays;
                     
                     $activeDailyIncome = $activeDailyIncome + $dailyearning;
@@ -48,8 +50,8 @@ class MainController extends Controller
         }
         return view('index', [
             'activeInvestimentsValue' => $activeInvestimentsValue,
-            'activeDailyIncome' => $activeDailyIncome,
-            'accumulatedIncome' => $accumulatedIncome
+            'activeDailyIncome' => number_format((float)$activeDailyIncome, 2, ',', ''),
+            'accumulatedIncome' => number_format((float)$accumulatedIncome, 2, ',', '')
         
         ]);
     }

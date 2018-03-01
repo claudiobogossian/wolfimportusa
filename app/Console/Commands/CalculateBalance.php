@@ -51,7 +51,9 @@ class CalculateBalance extends Command
         if (! empty($investiments)) {
             foreach ($investiments as $investiment) {
                 
-                $totalearning = $investiment->value * ($investiment->investimentpercent / 100);
+                $numberofmonths = $investiment->durationindays/30;
+                $totalperiodpercent = ($investiment->investimentpercent*$numberofmonths);
+                $totalearning = $investiment->value * ( $totalperiodpercent / 100);
                 $dailyearning = $totalearning / $investiment->durationindays;
                 
                 if($investiment->reviewdate!=$currentDate)
