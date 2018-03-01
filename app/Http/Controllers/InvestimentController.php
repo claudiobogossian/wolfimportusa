@@ -9,6 +9,7 @@ use App\UserAnalysis;
 use App\Balance;
 use App\Plan;
 use App\Properties;
+use Illuminate\Support\Facades\Mail;
 
 class InvestimentController extends Controller
 {
@@ -151,10 +152,23 @@ class InvestimentController extends Controller
                 DB::rollback();
             }
             
+            InvestimentController::sendEmailNotifications($user->email,$user->firstName." ".$user->lastName);
+            
             DB::commit();
             
             return redirect()->action('InvestimentController@showInvestimentForm');
         }
         
     }
+    private function sendEmailNotifications($email, $fullname)
+    {
+        
+        Mail::send('email.investmentrequested_admin', ['email' => $email, 'fullname' => $fullname], function ($message)
+        {
+            $message->from('wolfimportsusa@wolfimportsusa.com', 'Wolf Imports USA');
+            $message->to('wolfimportsusa@wolfimportsusa.com');
+            $message->subject('Wolf Imports USA - Nova solicitação de investimento.');
+        });
+        
+    }   
 }

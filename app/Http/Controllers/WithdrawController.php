@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Balance;
 use App\Withdraw;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class WithdrawController extends Controller
 {
@@ -34,6 +35,7 @@ class WithdrawController extends Controller
             ->join('requests', 'withdraw.requestid', '=', 'requests.id')
             ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
             ->select('withdraw.id','withdraw.value', 'requeststatus.name', 'withdraw.date')
+            ->where('withdraw.userid','=',$user->id)
             ->get();
             
             return view('pages.withdraw', 
@@ -82,6 +84,7 @@ class WithdrawController extends Controller
                 DB::rollback();
             }
             
+            WithdrawController::sendEmailNotifications($user->email,$user->firstName." ".$user->lastName);
             
             DB::commit();
             
@@ -89,4 +92,16 @@ class WithdrawController extends Controller
         }
         
     }
+    
+    private function sendEmailNotifications($email, $fullname)
+    {
+        
+        Mail::send('email.withdrawrequested_admin', ['email' => $email, 'fullname' => $fullname], function ($message)
+        {
+            $message->from('wolfimportsusa@wolfimportsusa.com', 'Wolf Imports USA');
+            $message->to('wolfimportsusa@wolfimportsusa.com');
+            $message->subject('Wolf Imports USA - Nova solicitação de saque.');
+        });
+   
+    }   
 }

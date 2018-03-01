@@ -104,10 +104,9 @@ class UsersController extends Controller
             DB::rollback();
         }
         
-
-        DB::commit();
+        UsersController::sendEmailNotifications($email,$firstName." ".$lastName);
         
-        UsersController::sendEmailNotifications($email,$firstName." ".$lastName);      
+        DB::commit();
         
         return redirect()->action('MainController@index');
     }
@@ -160,16 +159,18 @@ class UsersController extends Controller
     
     private function sendEmailNotifications($email, $fullname)
     {
-        Mail::send('email.newuser_admin', ['email' => $email, 'fullname' => $fullname], function ($message)
+        Mail::send('email.userrequested_admin', ['email' => $email, 'fullname' => $fullname], function ($message)
         {
-            $message->from('noreply@wolfimportsusa.com', 'WolfImports USA');
-            $message->to('claudio.bogossian@gmail.com');
+            $message->from('wolfimportsusa@wolfimportsusa.com', 'WolfImports USA');
+            $message->to('wolfimportsusa@wolfimportsusa.com');
+            $message->subject('Wolf Imports USA - Nova requisição de registro de usuário.');
         });
         
-        Mail::send('email.newuser', ['email' => $email, 'fullname' => $fullname], function ($message) use ($email)
+        Mail::send('email.userrequested', ['email' => $email, 'fullname' => $fullname], function ($message) use ($email)
         {
-            $message->from('noreply@wolfimportsusa.com', 'WolfImports USA');
+            $message->from('wolfimportsusa@wolfimportsusa.com', 'WolfImports USA');
             $message->to($email);
+            $message->subject('Wolf Imports USA - Registro.');
         });
     }   
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\UserAnalysis;
 use App\Investiment;
+use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
@@ -150,6 +151,8 @@ class AdminController extends Controller
             {
                 DB::rollback();
             }
+           
+            AdminController::sendEmailNotifications($user->email,$user->firstName." ".$user->lastName, $requeststatusid, $requesttypeid);
             
             
             DB::commit();
@@ -157,4 +160,30 @@ class AdminController extends Controller
             return redirect()->action('AdminController@manageRequests');
         }
     }
+    
+    private function sendEmailNotifications($email, $fullname, $requeststatusid, $requesttypeid)
+    {
+        if($requeststatusid==2)
+        {
+            if($requesttypeid==1)
+            {
+                Mail::send('email.useraproved', ['email' => $email, 'fullname' => $fullname], function ($message) use ($email)
+                {
+                    $message->from('wolfimportsusa@wolfimportsusa.com', 'Wolf Imports USA');
+                    $message->to($email);
+                    $message->subject('Wolf Imports USA - Registro Aprovado.');
+                });
+            } else if($requesttypeid==3) 
+            {
+                Mail::send('email.withdrawaproved', ['email' => $email, 'fullname' => $fullname], function ($message) use ($email)
+                {
+                    $message->from('wolfimportsusa@wolfimportsusa.com', 'Wolf Imports USA');
+                    $message->to($email);
+                    $message->subject('Wolf Imports USA - Saque Aprovado.');
+                });
+            }
+            
+        }
+       
+    }   
 }
