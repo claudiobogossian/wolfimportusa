@@ -5,6 +5,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Balance;
+use Illuminate\Support\Facades\Log;
 
 class CalculateBalance extends Command
 {
@@ -60,8 +61,9 @@ class CalculateBalance extends Command
                 {
                     $period = new \DatePeriod(new \DateTime($investiment->reviewdate), new \DateInterval('P1D'), new \DateTime($currentDate));
                     
+                   
                     foreach ($period as $date) {
-                        $balance = Balance::where('date', '=', $date)->get();
+                        $balance = Balance::where('date', '=', $date)->where('userid','=',$investiment->userid)->get();
                         if ($balance->isEmpty()) {
                             DB::beginTransaction();
                             
