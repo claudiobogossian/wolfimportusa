@@ -27,7 +27,7 @@ Aguardo aprovação, obrigado.<br>
 			width="100%"></td>
 		<td valign="middle" style="font-size: 10px;"><br> Regards, <br>
 			Alexandre Brito <br> QQ: 2337890178 <br> Skype: jet_cleaning<br>
-			www.wolfimportsusa.com. <br> Email: wolfimports@wolfimports.com<br>
+			www.wolfimportsusa.com. <br> Email: wolfimportsusa@wolfimportsusa.com<br>
 			Phone USA: +1(954)603-1279<br> MOBILE: +1(407)820-2098<br> <br></td>
 	</tr>
 	<tr>

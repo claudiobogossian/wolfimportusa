@@ -14,14 +14,6 @@
 
 @extends('layouts.default') @section('content')
 
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.2.4/inputmask/inputmask.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.2.4/inputmask/inputmask.numeric.extensions.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.2.4/inputmask/jquery.inputmask.js"></script>
-
-
 <div style="width: 80%; margin: 0 auto;">
 	<div class="panel panel-default">
 		<div class="panel-heading">New investiment request:</div>
@@ -210,17 +202,17 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-    $("#investimentValue").inputmask('currency', {
+    $("#investimentValue").inputmask('numeric', {
                 'alias': 'numeric',
                 'groupSeparator': ',',
                 'autoGroup': true,
                 'digits': 0,
-                'digitsOptional': false,
+                'digitsOptional': true,
                 'allowMinus': false,
                 'placeholder': '',
                 'prefix': '<?php echo $currentcurrency->prefix ?>',
                 'removeMaskOnSubmit': true,
-                'min': <?php echo $minValue ?> 
+                'min': <?php echo $minValue ?>
     });
 });
 

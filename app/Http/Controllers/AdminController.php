@@ -82,6 +82,8 @@ class AdminController extends Controller
             DB::beginTransaction();
             
             
+            
+            
             try {
                
                                
@@ -146,13 +148,36 @@ class AdminController extends Controller
                 
                 $request->save();
                               
+                $requestUser = null;
+                if($requesttypeid==1)
+                {
+                    $users = DB::table('users')->join('useranalysis', 'useranalysis.userid', '=', 'users.id')
+                    ->where('useranalysis.requestid', '=', $requestid)
+                    ->select('users.id', 'users.email', 'users.firstName', 'users.lastName')
+                    ->get();
+                    
+                    $requestUser = $users->first();
+                    
+                } else if($requesttypeid==3)
+                {
+                    $users = DB::table('users')->join('withdraw', 'withdraw.userid', '=', 'users.id')
+                    ->where('withdraw.requestid', '=', $requestid)
+                    ->select('users.id', 'users.email', 'user.firstName', 'user.lastName')
+                    ->get();
+                    
+                    $requestUser = $users->first();
+                }
+                
+                AdminController::sendEmailNotifications($requestUser->email,$requestUser->firstName." ".$requestUser->lastName, $requeststatusid, $requesttypeid);
+                
+            
             }
             catch(\Exception $e)
             {
                 DB::rollback();
             }
            
-            AdminController::sendEmailNotifications($user->email,$user->firstName." ".$user->lastName, $requeststatusid, $requesttypeid);
+            
             
             
             DB::commit();
