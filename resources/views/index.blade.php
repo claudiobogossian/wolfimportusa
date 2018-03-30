@@ -9,7 +9,8 @@
     ?>
 				<?php 
 				$request = request();
-				$currentcurrency = $request->session()->get('currentcurrency'); ?>
+				$currentcurrency = $request->session()->get('currentcurrency');
+ ?>
 <input type="hidden" value="Main Panel" id="pageTitle" />
 <div class="col-sm-4">
 	<div class="panel panel-default">
@@ -88,18 +89,39 @@
 var config = {
     type: 'line',
     data: {
-        labels: ["20/11", "21/11", "22/11", "23/11", "24/11", "25/11"],
+        labels: [
+        	<?php 
+        	foreach($chartData as $key => $value)
+           	{
+           	    if( next( $chartData ) ) {
+           	        echo "'".$key."',";
+           	    }
+           	    else 
+           	    {
+           	        echo "'".$key."'";
+           	    }
+           	    
+        	}
+        	?>
+           ],
         datasets: [{
             label: "Daily Profit",
             backgroundColor: window.chartColors.blue,
             borderColor: window.chartColors.blue,
             data: [
-                100,
-                110,
-                115,
-                130,
-                125,
-                160
+            	<?php 
+                    	foreach($chartData as $key => $value)
+                       	{
+                       	    if( next( $chartData ) ) {
+                       	        echo $value.",";
+                       	    }
+                       	    else 
+                       	    {
+                       	        echo $value;
+                       	    }
+                       	    
+                    	}
+                    	?>
             ],
             fill: false,
         }]
