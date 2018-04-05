@@ -50,8 +50,10 @@ class MainController extends Controller
             
             $chartData = array(); 
             
+            $currentDate2 = (new \DateTime($currentDate))->modify('+1 day');
+            
             foreach ($investiments as $investiment) {
-                $chartData = MainController::getChartData($chartData, new \DateTime($investiment->reviewdate), new \DateTime($currentDate), $activeDailyIncome);
+                $chartData = MainController::getChartData($chartData, new \DateTime($investiment->reviewdate), $currentDate2, $activeDailyIncome);
             }
             
             
@@ -67,6 +69,7 @@ class MainController extends Controller
     
     private function getChartData($chartData, $reviewDate, $currentDate, $activeDailyIncome)
     {
+        
         $period = new \DatePeriod($reviewDate, new \DateInterval('P1D'), $currentDate);
         
         foreach ($period as $date)

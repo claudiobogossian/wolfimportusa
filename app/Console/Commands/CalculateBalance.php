@@ -59,7 +59,9 @@ class CalculateBalance extends Command
                 
                 if($investiment->reviewdate!=$currentDate)
                 {
-                    $period = new \DatePeriod(new \DateTime($investiment->reviewdate), new \DateInterval('P1D'), new \DateTime($currentDate));
+                    $currentDate2 = (new \DateTime($currentDate))->modify('+1 day');
+                    
+                    $period = new \DatePeriod(new \DateTime($investiment->reviewdate), new \DateInterval('P1D'), $currentDate2);
                     
                    
                     foreach ($period as $date) {
