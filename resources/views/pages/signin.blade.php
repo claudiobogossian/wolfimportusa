@@ -121,7 +121,7 @@
 												class="cfa-submit form-submit" value="Register" style="border-radius: 10px 10px 10px 10px; float: right;" onclick="window.location='/register-form'"/>
 										
 										
-											<a href="showForgetPassword">Forgot my password</a>
+											<a href="showForgetPassword" style="font-size: 12px; color: white;">Forgot my password</a>
 										</div>
 										
 										</p>
