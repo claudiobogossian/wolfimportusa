@@ -135,13 +135,13 @@ body {
 
 					<div
 						class="sm-span12 smue-clmn  sme-dsbl-margin-left sme-dsbl-margin-right header_img"
-						style="height: 250px;">
+						style="height: 250px; padding-top: 40px !important;">
 						<div
 							class="sm-row-fluid smue-row sme-dsbl-margin-left sme-dsbl-margin-right header_mid_row">
 							<div
 								class="sm-span12 smue-clmn sme-dsbl-margin-left sme-dsbl-margin-right">
 								<div class="smue-text-obj wow fadeInUp delay_05s">
-									<h3 style="text-align: center;">Wolf Imports USA</h3>
+									<h3 style="text-align: center;"><img src="img/wolfinvestments.png" width="200px"></h3>
 								</div>
 
 							</div>
