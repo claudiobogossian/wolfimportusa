@@ -38,7 +38,7 @@ class AdminController extends Controller
             ->join('requesttype', 'requests.requesttypeid', '=', 'requesttype.id')
             ->join('users', 'investiment.userid', '=', 'users.id')
             ->join('currency', 'users.currencyid', '=', 'currency.id')
-            ->select('requests.id', 'users.email','investiment.value', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid', 'requesttype.name as requesttypename',  'requesttype.id as requesttypeid','requests.date', 'requests.reviewdate', 'currency.prefix as currencyprefix')
+            ->select('requests.id', 'users.email','investiment.value', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid', 'requesttype.name as requesttypename',  'requesttype.id as requesttypeid','requests.date', 'requests.reviewdate', 'currency.prefix as currencyprefix', 'investiment.duedate')
             ->orderBy('requests.date')
             ->get();
             

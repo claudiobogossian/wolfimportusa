@@ -119,6 +119,7 @@ td
 						<th>Status</th>
 						<th>Value</th>
 						<th>Aproval Date</th>
+						<th>Due Date</th>
 						<th>Action</th>
 					</tr>
 					<?php
@@ -153,6 +154,7 @@ td
 						</select></td>
 						<td><?php echo $ir->currencyprefix ?><?php echo $ir->value ?></td>
 						<td><?php echo $ir->reviewdate ?></td>
+						<td><?php echo $ir->duedate ?></td>
 						<td  align="center">
 							<input type="hidden" name="requestid" value="<?php echo $ir->id?>">
 							<input type="hidden" name="requesttypeid" value="<?php echo $ir->requesttypeid?>">
