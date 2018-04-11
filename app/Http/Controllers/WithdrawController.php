@@ -22,11 +22,12 @@ class WithdrawController extends Controller
             
             $matchThese = ['userid' => $user->id];
             $balances=Balance::where($matchThese)->get();
-            $balance=0;
+            $accumulatedIncome=0;
             
-            if(!$balances->isEmpty())
-            {
-                $balance=$balances->first()->value;
+            if (! empty($balances)) {
+                foreach ($balances as $balance) {
+                    $accumulatedIncome = $accumulatedIncome + $balance->value;
+                }
             }
             
             $matchThese2 = ['userid' => $user->id];
@@ -39,7 +40,7 @@ class WithdrawController extends Controller
             ->get();
             
             return view('pages.withdraw', 
-                ['balance' => $balance,
+                ['balance' => $accumulatedIncome,
                     'withdraws' => $withdraws
                 ]);
         }

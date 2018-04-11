@@ -54,6 +54,7 @@
         ?>
         						<select name="durationindays" class="form-control">
 								<option value="90">90 Days </option>
+								<option value="180">180 Days</option>
 
 							</select>
 							
@@ -66,14 +67,12 @@
                                     
                                  <select name="durationindays"
 								class="form-control">
+								<option value="90">90 Days </option>
 								<option value="180">180 Days</option>
 								
 							</select>
 							<?php 
-							if (!$user->isadmin)
-							{
-							     echo $userAnalysis->investimentpercent."%"; 
-                            }?>
+							?>
                                     
                                     
                                     

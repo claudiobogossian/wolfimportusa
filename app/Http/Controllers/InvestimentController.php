@@ -25,14 +25,15 @@ class InvestimentController extends Controller
             
             $matchThese = ['userid' => $user->id];
              $balances=Balance::where($matchThese)->get();
-            $balance=0;
+             $accumulatedIncome=0;
             
             $userAnalysis=UserAnalysis::where($matchThese)->get();
             
-            if(!$balances->isEmpty())
-            {
-                $balance=$balances->first()->value;
-            } 
+            if (! empty($balances)) {
+                foreach ($balances as $balance) {
+                    $accumulatedIncome = $accumulatedIncome + $balance->value;
+                }
+            }
             
             $matchThese2 = ['userid' => $user->id];
             
@@ -89,7 +90,7 @@ class InvestimentController extends Controller
             }
              
             return view('pages.investiment',
-                [ 'balance' => $balance, 
+                [ 'balance' => $accumulatedIncome, 
                   'investiments' => $investiments,
                   'plans' => $plans,
                   'hasDone90' =>  $hasDone90,
