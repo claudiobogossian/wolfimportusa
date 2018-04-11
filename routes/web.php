@@ -54,6 +54,11 @@ Route::get('/showForgetPassword', 'LoginController@showForgetPassword');
 
 Route::post('/forgetPassword', 'LoginController@forgetPassword');
 
+Route::get('/deleteUser', 'AdminController@deleteUser');
+
+
+
+
 
 
 Route::get('/migrate', function () {

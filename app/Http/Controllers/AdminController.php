@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\UserAnalysis;
 use App\Investiment;
 use Illuminate\Support\Facades\Mail;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -45,7 +46,7 @@ class AdminController extends Controller
             ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
             ->join('users', 'useranalysis.userid', '=', 'users.id')
             ->join('requesttype', 'requests.requesttypeid', '=', 'requesttype.id')
-            ->select('requests.id', 'users.email', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid',  'requesttype.name as requesttypename','requesttype.id as requesttypeid','requests.date', 'useranalysis.investimentpercent', 'requests.reviewdate')
+            ->select('requests.id', 'users.email', 'requeststatus.name as requeststatusname', 'requeststatus.id as requeststatusid',  'requesttype.name as requesttypename','requesttype.id as requesttypeid','requests.date', 'useranalysis.investimentpercent', 'requests.reviewdate', 'users.id as userid')
             ->orderBy('requests.date')
             ->get();
             
@@ -190,6 +191,50 @@ class AdminController extends Controller
             
             DB::commit();
                    
+            return redirect()->action('AdminController@manageRequests');
+        }
+    }
+    
+    
+    public function deleteUser(Request $request)
+    {
+        if (! $request->session()->has('loggeduser'))
+        {
+            return view('pages.register');
+        } else {
+            $user = $request->session()->get('loggeduser');
+            
+            if(!$user->isadmin)
+            {
+                return redirect()->action('MainController@index');
+            }
+            
+            $userid = $request->input('userid');
+            
+            $matchThese = ['id' => $userid];
+            
+            $user=User::where($matchThese)->get();
+            
+            if(!$user->isEmpty())
+            {
+                try
+                {
+                    DB::table('bankdata')->where('userid', '=', $userid)->delete();
+                    DB::table('balance')->where('userid', '=', $userid)->delete();
+                    DB::table('withdraw')->where('userid', '=', $userid)->delete();
+                    DB::table('useranalysis')->where('userid', '=', $userid)->delete();
+                    DB::table('investiment')->where('userid', '=', $userid)->delete();
+                    DB::table('users')->where('id', '=', $userid)->delete();
+                    
+                }
+                catch(\Exception $e)
+                {
+                    DB::rollback();
+                }
+                DB::commit();
+            }
+
+            
             return redirect()->action('AdminController@manageRequests');
         }
     }

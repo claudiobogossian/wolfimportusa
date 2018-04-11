@@ -80,6 +80,8 @@ td
 							<input type="hidden" name="requesttypeid" value="<?php echo $ur->requesttypeid?>">
 							<button type="submit" class="btn btn-default"
 								>Save</button>
+							<button type="button" class="btn btn-default" onclick="deleteUser('<?php echo $ur->email?>','<?php echo $ur->userid?>');"
+								>Delete</button>
 
 						</td>
 					</tr>
@@ -262,6 +264,14 @@ td
 
 <script type="text/javascript">
 
+function deleteUser(email, id)
+{
+	if(confirm('Deleting user "'+email+'". Are you sure?'))
+	{
+		window.location="deleteUser?userid="+id;
+	}
+}
+
 $(document).ready(function(){
     $(".investimenttext").inputmask("decimal", {
         radixPoint: ".",
@@ -286,7 +296,8 @@ $(document).ready(function(){
 }); */
 
 
- $('#investimentForm').validator();
+
+ /* $('#investimentForm').validator(); */
  
 </script>
 

@@ -20,6 +20,7 @@ class VerifyCsrfToken extends Middleware
         '/updatebankdata',
         '/updateuser',
         '/updaterequest',
-        '/forgetPassword'
+        '/forgetPassword',
+        '/deleteUser',
     ];
 }
