@@ -47,17 +47,7 @@
 
 
 						</div>
-						<label class="control-label col-sm-2" for="plan">Days
-						 <?php 
-						 
-						 $user = $request->session()->get('loggeduser');
-						 
-						 if (!$user->isadmin)
-						 {
-						 
-						 	 echo "(".$userAnalysis->investimentpercent."%)"; 
-						 } 
-						?>:</label>
+						<label class="control-label col-sm-2" for="plan">Days</label>
 						<div class="col-sm-2">
 						<?php
     if (! $hasDone90) {
@@ -135,15 +125,6 @@
 								style="color: green;" readonly="readonly">
 						</div>
 					</div>
-					<label class="control-label col-sm-3" for="email">Minimal value to invest:</label>
-					<div class="row">
-					
-						<div class="col-sm-4">
-							 <input id="minValue" name="minValue" type="text"
-								class="form-control" value="<?php echo $minValue ?>"
-								style="color: green;" readonly="readonly">
-						</div>
-					</div>
 
 				</div>
 				<div>
@@ -211,8 +192,7 @@ $(document).ready(function(){
                 'allowMinus': false,
                 'placeholder': '',
                 'prefix': '<?php echo $currentcurrency->prefix ?>',
-                'removeMaskOnSubmit': true,
-                'min': <?php echo $minValue ?>
+                'removeMaskOnSubmit': true
     });
 });
 

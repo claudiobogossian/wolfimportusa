@@ -47,13 +47,46 @@ class MainController extends Controller
                     $accumulatedIncome = $accumulatedIncome + $balance->value;
                 }
             }
+            
+            $chartData = array(); 
+            
+            $currentDate2 = (new \DateTime($currentDate))->modify('+1 day');
+            
+            foreach ($investiments as $investiment) {
+                $chartData = MainController::getChartData($chartData, new \DateTime($investiment->reviewdate), $currentDate2, $activeDailyIncome);
+            }
+            
+            
         }
         return view('index', [
             'activeInvestimentsValue' => $activeInvestimentsValue,
             'activeDailyIncome' => number_format((float)$activeDailyIncome, 2, ',', ''),
-            'accumulatedIncome' => number_format((float)$accumulatedIncome, 2, ',', '')
+            'accumulatedIncome' => number_format((float)$accumulatedIncome, 2, ',', ''),
+            'chartData' => $chartData
         
         ]);
+    }
+    
+    private function getChartData($chartData, $reviewDate, $currentDate, $activeDailyIncome)
+    {
+        
+        $period = new \DatePeriod($reviewDate, new \DateInterval('P1D'), $currentDate);
+        
+        foreach ($period as $date)
+        {
+            $formattedDate= $date->format('d-m-Y');
+            if(array_key_exists($formattedDate, $chartData))
+            {
+                $chartData[$formattedDate]=$chartData[$formattedDate] + $activeDailyIncome;
+            }
+            else
+            {
+                $chartData[$formattedDate]=$activeDailyIncome;
+            }
+        
+        }
+        
+        return $chartData;
     }
 }
     

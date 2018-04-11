@@ -173,5 +173,10 @@ class UsersController extends Controller
             $message->subject('Wolf Imports USA - Registro.');
         });
     }   
+    private function resetPassword(Request $request)
+    {
+        $email = $request->input('email');
+    }
+    
 
 }

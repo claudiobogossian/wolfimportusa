@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +19,8 @@ Route::get('/', 'MainController@index');
 Route::post('/login', 'LoginController@authenticate');
 
 Route::get('/logout', 'LoginController@logout');
+
+Route::get('/reset-password', 'UsersController@resetPassword');
 
 Route::get('/register-form', 'UsersController@showRegisterForm');
 
@@ -46,6 +50,8 @@ Route::get('/manage-requests', 'AdminController@manageRequests');
 
 Route::post('/updaterequest', 'AdminController@updateRequest');
 
+
+
 Route::get('/migrate', function () {
     $migrate = Artisan::call('migrate');
     echo "DB Migrated <br>";
@@ -61,6 +67,9 @@ Route::get('/migrate-reset', function () {
         $migrate = Artisan::call('calculate:balance');
         echo "Calculated balance <br>";
     });
+    
+    
+
 
 /*
 Route::get('/', function () {

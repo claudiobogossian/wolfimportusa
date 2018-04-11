@@ -162,7 +162,15 @@ class AdminController extends Controller
                 {
                     $users = DB::table('users')->join('withdraw', 'withdraw.userid', '=', 'users.id')
                     ->where('withdraw.requestid', '=', $requestid)
-                    ->select('users.id', 'users.email', 'user.firstName', 'user.lastName')
+                    ->select('users.id', 'users.email', 'users.firstName', 'users.lastName')
+                    ->get();
+                    
+                    $requestUser = $users->first();
+                } else if($requesttypeid==2)
+                {
+                    $users = DB::table('users')->join('investiment', 'investiment.userid', '=', 'users.id')
+                    ->where('investiment.requestid', '=', $requestid)
+                    ->select('users.id', 'users.email', 'users.firstName', 'users.lastName')
                     ->get();
                     
                     $requestUser = $users->first();
