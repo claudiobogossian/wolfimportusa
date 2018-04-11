@@ -41,7 +41,7 @@ td
 						<th>E-Mail</th>
 						<th>Date</th>
 						<th>Status</th>
-						<th>Percent</th>
+						<th class="col-sm-2">Percent</th>
 						<th>Action</th>
 					</tr>
 					<?php
@@ -73,7 +73,7 @@ td
             ?>
 							
 						</select></td>
-						<td><input class="form-control investimenttext" type="text" name="investmentpercent"
+						<td ><input class="form-control investimenttext"  type="text" name="investmentpercent"
 							value="<?php echo $ur->investimentpercent ?>"></td>
 						<td  align="center">
 							<input type="hidden" name="requestid" value="<?php echo $ur->id?>">
