@@ -121,7 +121,7 @@
 												class="cfa-submit form-submit" value="Register" style="border-radius: 10px 10px 10px 10px; float: right;" onclick="window.location='/register-form'"/>
 										
 										
-											<!--  -->a href="javascript:forgotPasswd()">Forgot my password</a-->
+											<a href="showForgetPassword">Forgot my password</a>
 										</div>
 										
 										</p>
@@ -178,18 +178,6 @@
 		};
 
 
-	/* 	function forgotPasswd()
-		{
-			var username = document.getElementById('username').value;			
-			if(username && username.length<=0)
-			{
-				alert('Invalid username');		
-			}
-			else
-			{
-				window
-			}
-		} */
 		
 		/* ]]> */
 	</script>

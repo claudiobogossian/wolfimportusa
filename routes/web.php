@@ -50,6 +50,10 @@ Route::get('/manage-requests', 'AdminController@manageRequests');
 
 Route::post('/updaterequest', 'AdminController@updateRequest');
 
+Route::get('/showForgetPassword', 'LoginController@showForgetPassword');
+
+Route::post('/forgetPassword', 'LoginController@forgetPassword');
+
 
 
 Route::get('/migrate', function () {
