@@ -251,7 +251,16 @@ class AdminController extends Controller
                     $message->to($email);
                     $message->subject('Wolf Imports USA - Registro Aprovado.');
                 });
-            } else if($requesttypeid==3) 
+            } else if($requesttypeid==2)
+            {
+                Mail::send('email.investmentaproved', ['email' => $email, 'fullname' => $fullname], function ($message) use ($email)
+                {
+                    $message->from('wolfimportsusa@wolfimportsusa.com', 'Wolf Imports USA');
+                    $message->to($email);
+                    $message->subject('Wolf Imports USA - Investimento Aprovado.');
+                });
+            }
+            else if($requesttypeid==3) 
             {
                 Mail::send('email.withdrawaproved', ['email' => $email, 'fullname' => $fullname], function ($message) use ($email)
                 {
