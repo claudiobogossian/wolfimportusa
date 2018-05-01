@@ -1,3 +1,6 @@
+<?php
+use function Monolog\Handler\error_log;
+?>
 <input type="hidden" value="#painel" id="selectedTab" />
 @extends('layouts.default') @section('content')
 
@@ -7,9 +10,10 @@
     $loggeduser = $request->session()->get('loggeduser');
     
     ?>
-				<?php 
-				$request = request();
-				$currentcurrency = $request->session()->get('currentcurrency');
+	<?php 
+	$request = request();
+	$currentcurrency = $request->session()->get('currentcurrency');
+	//$investmentsList = $request->session()->get('investmentsList');
  ?>
 <input type="hidden" value="Main Panel" id="pageTitle" />
 <div class="col-sm-4">
@@ -49,29 +53,147 @@
 </div>
 <div class="col-sm-8">
 	<div class="panel panel-default">
-		<div class="panel-heading">Investing Details</div>
+						<script src="http://www.chartjs.org/dist/2.7.1/Chart.bundle.js"></script>
+                    <script src="http://www.chartjs.org/samples/latest/utils.js"></script>
+                    <script>
+
+                    	var chartsOnLoadFunctions = new Array();
+						
+                    	
+                    </script>
+	<?php 
+	$i = 1;
+	if (! empty($investmentsList)) {
+	    foreach ($investmentsList as $investment) {
+	 ?>
+	 
+	 
+	 <div class="panel-heading">Investing Details <?php echo $i?></div>
 		<div class="panel-body">
 
 			<div class="col-sm-4">
 				<div class="row control-label" style="font-weight: bold;">Active
 					Investiment</div>
-				<div class="row control-label"><?php echo $currentcurrency->prefix." ".$activeInvestimentsValue?></div><br>
+				<div class="row control-label"><?php echo $currentcurrency->prefix." ".$investment['activeInvestimentValue']?></div><br>
 				<div class="row control-label" style="font-weight: bold;">Daily
 					Income</div>
-				<div class="row control-label"><?php echo $currentcurrency->prefix." ".$activeDailyIncome?></div><br>
+				<div class="row control-label"><?php echo $currentcurrency->prefix." ".$investment['activeDailyIncome']?></div><br>
 				<div class="row control-label" style="font-weight: bold;">
 					Accumulated Income</div>
-				<div class="row control-label"><?php echo $currentcurrency->prefix." ".$accumulatedIncome?></div><br>
+				<div class="row control-label"><?php echo $currentcurrency->prefix." ".$investment['accumulatedIncome']?></div><br>
 
 			</div>
 			<div class="col-sm-8 control-label">
 			
-				<canvas id="canvas"></canvas>
+				<canvas id="canvas<?php echo $i?>"></canvas>
+				
+
+                    <script>
+                    //var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                    var config<?php echo $i?> = {
+                        type: 'line',
+                        data: {
+                            labels: [
+                            	<?php 
+                            	foreach($investment['chartData'] as $key => $value)
+                               	{
+                               	    if( next( $investment['chartData'] ) ) {
+                               	        echo "'".$key."',";
+                               	    }
+                               	    else 
+                               	    {
+                               	        echo "'".$key."'";
+                               	    }
+                               	    
+                            	}
+                            	?>
+                               ],
+                            datasets: [{
+                                label: "Daily Profit",
+                                backgroundColor: window.chartColors.blue,
+                                borderColor: window.chartColors.blue,
+                                data: [
+                                	<?php 
+                                            foreach($investment['chartData'] as $key => $value)
+                                           	{
+                                           	    if( next( $investment['chartData'] ) ) {
+                                           	        echo $value.",";
+                                           	    }
+                                           	    else 
+                                           	    {
+                                           	        echo $value;
+                                           	    }
+                                           	    
+                                        	}
+                                        	?>
+                                ],
+                                fill: false,
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            title:{
+                                display:true,
+                                text:''
+                            },
+                            tooltips: {
+                                mode: 'index',
+                                intersect: false,
+                            },
+                            hover: {
+                                mode: 'nearest',
+                                intersect: true
+                            },
+                            scales: {
+                                xAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Month'
+                                    }
+                                }],
+                                yAxes: [{
+                                    display: true,
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Value'
+                                    }
+                                }]
+                            }
+                        }
+                    };
+                    
+                    chartsOnLoadFunctions.push(function() {
+                        var ctx<?php echo $i?> = document.getElementById("canvas<?php echo $i?>").getContext("2d");
+                        window.myLine<?php echo $i?> = new Chart(ctx<?php echo $i?>, config<?php echo $i?>);
+                    });
+                    
+                    </script>
+				
 			</div>
 
 
 
 		</div>
+	 
+	 
+	 <?php 
+	      $i++;  
+	    }
+	}
+	
+	?>
+	<script>
+
+	window.onload = function()
+	{
+		chartsOnLoadFunctions.forEach(function(chartFunction) {
+			chartFunction();
+		});
+	}
+	
+	</script>
+		
 	</div>
 </div>
 <br>
@@ -82,87 +204,7 @@
 	</div>
 </div>
 
-<script src="http://www.chartjs.org/dist/2.7.1/Chart.bundle.js"></script>
-<script src="http://www.chartjs.org/samples/latest/utils.js"></script>
-<script>
-//var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-var config = {
-    type: 'line',
-    data: {
-        labels: [
-        	<?php 
-        	foreach($chartData as $key => $value)
-           	{
-           	    if( next( $chartData ) ) {
-           	        echo "'".$key."',";
-           	    }
-           	    else 
-           	    {
-           	        echo "'".$key."'";
-           	    }
-           	    
-        	}
-        	?>
-           ],
-        datasets: [{
-            label: "Daily Profit",
-            backgroundColor: window.chartColors.blue,
-            borderColor: window.chartColors.blue,
-            data: [
-            	<?php 
-                    	foreach($chartData as $key => $value)
-                       	{
-                       	    if( next( $chartData ) ) {
-                       	        echo $value.",";
-                       	    }
-                       	    else 
-                       	    {
-                       	        echo $value;
-                       	    }
-                       	    
-                    	}
-                    	?>
-            ],
-            fill: false,
-        }]
-    },
-    options: {
-        responsive: true,
-        title:{
-            display:true,
-            text:''
-        },
-        tooltips: {
-            mode: 'index',
-            intersect: false,
-        },
-        hover: {
-            mode: 'nearest',
-            intersect: true
-        },
-        scales: {
-            xAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Month'
-                }
-            }],
-            yAxes: [{
-                display: true,
-                scaleLabel: {
-                    display: true,
-                    labelString: 'Value'
-                }
-            }]
-        }
-    }
-};
-window.onload = function() {
-    var ctx = document.getElementById("canvas").getContext("2d");
-    window.myLine = new Chart(ctx, config);
-};
-</script>
+
 
 
 @stop
