@@ -76,6 +76,7 @@ class CalculateBalance extends Command
                                 $newBalance->date = $date;
                                 $newBalance->value = $dailyearning;
                                 $newBalance->requestid = $investiment->requestid;
+                                $newBalance->investimentid = $investiment->id;
                                 
                                 $newBalance->save();
                                 

@@ -10,6 +10,7 @@ class MainController extends Controller
 
     public function index(Request $request)
     {
+        $investmentsList = array();
         if (! $request->session()->has('loggeduser')) {
             return view('pages.signin');
         } else {
@@ -25,12 +26,19 @@ class MainController extends Controller
                 ->where('userid', $loggeduser->id)
                 ->get();
             
-            $activeInvestimentsValue = 0;
-            $activeDailyIncome = 0;
-            $accumulatedIncome = 0;
+
+            
+           
             if (! empty($investiments)) {
                 foreach ($investiments as $investiment) {
-                    $activeInvestimentsValue = $activeInvestimentsValue + $investiment->value;
+                    
+                    $investmentMap = array();
+                    
+                    $activeInvestimentValue = 0;
+                    $activeDailyIncome = 0;
+                    $accumulatedIncome = 0;
+                    
+                    $activeInvestimentValue = $activeInvestimentValue + $investiment->value;
                     
                     $numberofmonths = $investiment->durationindays/30;
                     $totalperiodpercent = ($investiment->investimentpercent*$numberofmonths);
@@ -38,32 +46,36 @@ class MainController extends Controller
                     $dailyearning = $totalearning / $investiment->durationindays;
                     
                     $activeDailyIncome = $activeDailyIncome + $dailyearning;
+                    
+                    
+                    $balances = Balance::where('userid', '=', $loggeduser->id)->where('investimentid','=', $investiment->id)->get();
+                    if (! empty($balances)) {
+                        foreach ($balances as $balance) {
+                            $accumulatedIncome = $accumulatedIncome + $balance->value;
+                        }
+                    }
+                    
+                    $investmentMap['activeInvestimentValue'] = $activeInvestimentValue;
+                    $investmentMap['activeDailyIncome'] = number_format((float)$activeDailyIncome, 2, ',', '');
+                    $investmentMap['accumulatedIncome'] = number_format((float)$accumulatedIncome, 2, ',', '');
+                    
+                    $chartData = array();
+                    
+                    $currentDate2 = (new \DateTime($currentDate))->modify('+1 day');
+                    
+                    $chartData = MainController::getChartData($chartData, new \DateTime($investiment->reviewdate), $currentDate2, $activeDailyIncome);
+                    
+                    $investmentMap['chartData'] = $chartData;
+                    
+                    array_push($investmentsList,$investmentMap);
                 }
             }
-            
-            $balances = Balance::where('userid', '=', $loggeduser->id)->get();
-            if (! empty($balances)) {
-                foreach ($balances as $balance) {
-                    $accumulatedIncome = $accumulatedIncome + $balance->value;
-                }
-            }
-            
-            $chartData = array(); 
-            
-            $currentDate2 = (new \DateTime($currentDate))->modify('+1 day');
-            
-            foreach ($investiments as $investiment) {
-                $chartData = MainController::getChartData($chartData, new \DateTime($investiment->reviewdate), $currentDate2, $activeDailyIncome);
-            }
-            
+                       
+
             
         }
         return view('index', [
-            'activeInvestimentsValue' => $activeInvestimentsValue,
-            'activeDailyIncome' => number_format((float)$activeDailyIncome, 2, ',', ''),
-            'accumulatedIncome' => number_format((float)$accumulatedIncome, 2, ',', ''),
-            'chartData' => $chartData
-        
+            'investmentsList' => $investmentsList
         ]);
     }
     
