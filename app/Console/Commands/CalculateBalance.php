@@ -65,7 +65,10 @@ class CalculateBalance extends Command
                     
                    
                     foreach ($period as $date) {
-                        $balance = Balance::where('date', '=', $date)->where('userid','=',$investiment->userid)->get();
+                        $balance = Balance::where('date', '=', $date)
+                        ->where('userid','=',$investiment->userid)
+                        ->where('investimentid','=',$investiment->id)
+                        ->get();
                         if ($balance->isEmpty()) {
                             DB::beginTransaction();
                             
