@@ -83,7 +83,7 @@ class WithdrawController extends Controller
                 $withdraw->requestid=$newRequest->id;
                 $withdraw->userid=$user->id;
                 $withdraw->value = $withdrawValue;
-                
+                $withdraw->investimentid=0;
                 
                 $withdraw->save();
             }
