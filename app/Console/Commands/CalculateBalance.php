@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Balance;
 use Illuminate\Support\Facades\Log;
+use App\Investiment;
 
 class CalculateBalance extends Command
 {
@@ -44,8 +45,8 @@ class CalculateBalance extends Command
         $currentDate = date('Y\-m\-d');
         
         $investiments = DB::table('investiment')->join('requests', 'investiment.requestid', '=', 'requests.id')
-            ->select('investiment.id', 'investiment.value', 'investiment.userid', 'investiment.investimentpercent', 'investiment.durationindays', 'requests.reviewdate', 'requests.id as requestid')
-            ->whereDate('investiment.duedate', '>=', $currentDate)
+        ->select('investiment.id', 'investiment.value', 'investiment.userid', 'investiment.investimentpercent', 'investiment.durationindays', 'investiment.duedate','requests.reviewdate', 'requests.id as requestid')
+           // ->whereDate('investiment.duedate', '>=', $currentDate)
             ->where('requests.approved', true)
             ->get();
         
@@ -63,39 +64,64 @@ class CalculateBalance extends Command
                     
                     $period = new \DatePeriod(new \DateTime($investiment->reviewdate), new \DateInterval('P1D'), $currentDate2);
                     
-                   
-                    foreach ($period as $date) {
-                        $balance = Balance::where('date', '=', $date)
-                        ->where('userid','=',$investiment->userid)
-                        ->where('investimentid','=',$investiment->id)
-                        ->get();
-                        if ($balance->isEmpty()) {
-                            DB::beginTransaction();
-                            
-                            try {
+                    if($investiment->duedate>=$currentDate)
+                    {
+                        foreach ($period as $date) {
+                            $balance = Balance::where('date', '=', $date)
+                            ->where('userid','=',$investiment->userid)
+                            ->where('investimentid','=',$investiment->id)
+                            ->get();
+                            if ($balance->isEmpty()) {
+                                DB::beginTransaction();
                                 
-                                $newBalance = new Balance();
-                                $newBalance->userid = $investiment->userid;
-                                $newBalance->date = $date;
-                                $newBalance->value = $dailyearning;
-                                $newBalance->requestid = $investiment->requestid;
-                                $newBalance->investimentid = $investiment->id;
+                                try {
+                                    
+                                    $newBalance = new Balance();
+                                    $newBalance->userid = $investiment->userid;
+                                    $newBalance->date = $date;
+                                    $newBalance->value = $dailyearning;
+                                    $newBalance->requestid = $investiment->requestid;
+                                    $newBalance->investimentid = $investiment->id;
+                                    
+                                    $newBalance->save();
+                                    
+                                } catch (\Exception $e) {
+                                    
+                                    echo $e->message;
+                                    
+                                    DB::rollback();
+                                }
                                 
-                                $newBalance->save();
-                                
-                            } catch (\Exception $e) {
-                                
-                                echo $e->message;
-                                
-                                DB::rollback();
+                                DB::commit();
                             }
-                            
-                            DB::commit();
                         }
                     }
+                    else 
+                    {
+                        $doneInvestiments = Investiment::where("investiment.id", "=", $investiment->id);
+                        
+                        if (! empty($doneInvestiments)) {
+                            $doneInvestiment = $doneInvestiments->first();
+                            
+                            if($doneInvestiment->done==false)
+                            {
+                             try
+                               {
+                                   $doneInvestiment->done = true;
+                                   
+                                   $doneInvestiment->save();
+                                   
+                                } catch (\Exception $e) {
+                                    
+                                    echo $e->message;
+                                    
+                                    DB::rollback();
+                                }
+                            }
+                        }
+                       
+                    }
                 }
-                
-               
             }
         }
     }

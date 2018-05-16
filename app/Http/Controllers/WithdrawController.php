@@ -20,8 +20,15 @@ class WithdrawController extends Controller
             
             $user = $request->session()->get('loggeduser');
             
-            $matchThese = ['userid' => $user->id];
-            $balances=Balance::where($matchThese)->get();
+            //$matchThese = ['userid' => $user->id];
+            //$balances=Balance::where($matchThese)->get();
+            
+            $balances = DB::table('balance')->join('investiment','balance.investimentid','=','investiment.id')
+            ->select('balance.value')
+            ->where('investiment.done','=',1)
+            ->where('balance.userid','=',$user->id)
+            ->get();
+            
             $accumulatedIncome=0;
             
             if (! empty($balances)) {
