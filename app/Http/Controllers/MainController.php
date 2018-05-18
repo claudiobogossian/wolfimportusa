@@ -20,7 +20,7 @@ class MainController extends Controller
             $currentDate = date('Y\-m\-d');
             
             $investiments = DB::table('investiment')->join('requests', 'investiment.requestid', '=', 'requests.id')
-                ->select('investiment.id', 'investiment.value', 'investiment.userid', 'investiment.investimentpercent', 'investiment.durationindays', 'requests.reviewdate', 'requests.id as requestid')
+            ->select('investiment.id', 'investiment.value', 'investiment.userid', 'investiment.investimentpercent', 'investiment.durationindays', 'investiment.done', 'requests.reviewdate', 'requests.id as requestid')
                 ->whereDate('investiment.duedate', '>=', $currentDate)
                 ->where('requests.approved', true)
                 ->where('userid', $loggeduser->id)
@@ -32,42 +32,45 @@ class MainController extends Controller
             if (! empty($investiments)) {
                 foreach ($investiments as $investiment) {
                     
-                    $investmentMap = array();
-                    
-                    $activeInvestimentValue = 0;
-                    $activeDailyIncome = 0;
-                    $accumulatedIncome = 0;
-                    
-                    $activeInvestimentValue = $activeInvestimentValue + $investiment->value;
-                    
-                    $numberofmonths = $investiment->durationindays/30;
-                    $totalperiodpercent = ($investiment->investimentpercent*$numberofmonths);
-                    $totalearning = $investiment->value * ( $totalperiodpercent / 100);
-                    $dailyearning = $totalearning / $investiment->durationindays;
-                    
-                    $activeDailyIncome = $activeDailyIncome + $dailyearning;
-                    
-                    
-                    $balances = Balance::where('userid', '=', $loggeduser->id)->where('investimentid','=', $investiment->id)->get();
-                    if (! empty($balances)) {
-                        foreach ($balances as $balance) {
-                            $accumulatedIncome = $accumulatedIncome + $balance->value;
+                    if($investiment->done==false)
+                    {
+                        $investmentMap = array();
+                        
+                        $activeInvestimentValue = 0;
+                        $activeDailyIncome = 0;
+                        $accumulatedIncome = 0;
+                        
+                        $activeInvestimentValue = $activeInvestimentValue + $investiment->value;
+                        
+                        $numberofmonths = $investiment->durationindays/30;
+                        $totalperiodpercent = ($investiment->investimentpercent*$numberofmonths);
+                        $totalearning = $investiment->value * ( $totalperiodpercent / 100);
+                        $dailyearning = $totalearning / $investiment->durationindays;
+                        
+                        $activeDailyIncome = $activeDailyIncome + $dailyearning;
+                        
+                        
+                        $balances = Balance::where('userid', '=', $loggeduser->id)->where('investimentid','=', $investiment->id)->get();
+                        if (! empty($balances)) {
+                            foreach ($balances as $balance) {
+                                $accumulatedIncome = $accumulatedIncome + $balance->value;
+                            }
                         }
+                        
+                        $investmentMap['activeInvestimentValue'] = $activeInvestimentValue;
+                        $investmentMap['activeDailyIncome'] = number_format((float)$activeDailyIncome, 2, ',', '');
+                        $investmentMap['accumulatedIncome'] = number_format((float)$accumulatedIncome, 2, ',', '');
+                        
+                        $chartData = array();
+                        
+                        $currentDate2 = (new \DateTime($currentDate))->modify('+1 day');
+                        
+                        $chartData = MainController::getChartData($chartData, new \DateTime($investiment->reviewdate), $currentDate2, $activeDailyIncome);
+                        
+                        $investmentMap['chartData'] = $chartData;
+                        
+                        array_push($investmentsList,$investmentMap);
                     }
-                    
-                    $investmentMap['activeInvestimentValue'] = $activeInvestimentValue;
-                    $investmentMap['activeDailyIncome'] = number_format((float)$activeDailyIncome, 2, ',', '');
-                    $investmentMap['accumulatedIncome'] = number_format((float)$accumulatedIncome, 2, ',', '');
-                    
-                    $chartData = array();
-                    
-                    $currentDate2 = (new \DateTime($currentDate))->modify('+1 day');
-                    
-                    $chartData = MainController::getChartData($chartData, new \DateTime($investiment->reviewdate), $currentDate2, $activeDailyIncome);
-                    
-                    $investmentMap['chartData'] = $chartData;
-                    
-                    array_push($investmentsList,$investmentMap);
                 }
             }
                        

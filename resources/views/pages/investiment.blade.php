@@ -146,7 +146,9 @@
 						<th>Value</th>
 						<th>Status</th>
 						<th>Date</th>
+						<th>Due Date</th>
 						<th>Durations (Days)</th>
+						<th>Done</th>						
 					</tr>
 					<?php
     
@@ -158,7 +160,9 @@
 						<td><?php echo $currentcurrency->prefix ?><?php echo $investiment->value ?></td>
 						<td><?php echo $investiment->name ?></td>
 						<td><?php echo $investiment->date ?></td>
+						<td><?php echo $investiment->duedate ?></td>
 						<td><?php echo $investiment->durationindays ?></td>
+						<td><?php if($investiment->done==0){ echo "No"; } else { echo "Yes"; } ?></td>
 					</tr>
 					        <?php
         }

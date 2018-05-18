@@ -46,6 +46,12 @@ class WithdrawController extends Controller
             ->where('withdraw.userid','=',$user->id)
             ->get();
             
+            if (! empty($withdraws)) {
+                foreach ($withdraws as $withdraw) {
+                    $accumulatedIncome = $accumulatedIncome - $withdraw->value;
+                }
+            }
+            
             return view('pages.withdraw', 
                 ['balance' => $accumulatedIncome,
                     'withdraws' => $withdraws

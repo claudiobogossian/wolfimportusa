@@ -24,7 +24,11 @@ class InvestimentController extends Controller
             $user = $request->session()->get('loggeduser');
             
             $matchThese = ['userid' => $user->id];
-             $balances=Balance::where($matchThese)->get();
+            $balances = DB::table('balance')->join('investiment','balance.investimentid','=','investiment.id')
+            ->select('balance.value')
+            ->where('investiment.done','=',1)
+            ->where('balance.userid','=',$user->id)
+            ->get();
              $accumulatedIncome=0;
             
             $userAnalysis=UserAnalysis::where($matchThese)->get();
@@ -35,12 +39,26 @@ class InvestimentController extends Controller
                 }
             }
             
+            $withdraws = DB::table('withdraw')
+            ->join('requests', 'withdraw.requestid', '=', 'requests.id')
+            ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
+            ->select('withdraw.id','withdraw.value', 'requeststatus.name', 'withdraw.date')
+            ->where('withdraw.userid','=',$user->id)
+            ->get();
+            
+            if (! empty($withdraws)) {
+                foreach ($withdraws as $withdraw) {
+                    $accumulatedIncome = $accumulatedIncome - $withdraw->value;
+                }
+            }
+            
+            
             $matchThese2 = ['userid' => $user->id];
             
             $investiments = DB::table('investiment')
             ->join('requests', 'investiment.requestid', '=', 'requests.id')
             ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
-            ->select('requests.id','investiment.value', 'requeststatus.name', 'requests.date', 'investiment.durationindays')
+            ->select('requests.id','investiment.value', 'requeststatus.name', 'requests.date', 'investiment.durationindays', 'investiment.duedate', 'investiment.done')
             ->where('investiment.userid',$user->id)
             ->get();
             
