@@ -259,7 +259,49 @@ td
 		</div>
 	</div>
 
-
+    <div class="panel panel-default">
+    		<div class="panel-heading">Bank Data:</div>
+    		<div class="panel-body">
+    
+    			<div class="container" style="width: 100%;">
+    				<table class="table table-bordered table-striped">
+    					<tr>
+    						<th>E-Mail</th>
+    						<th>Full Name</th>
+    						<th>Bank Id</th>
+    						<th>Document</th>
+    						<th>Agency</th>
+    						<th>Account</th>
+    						<th>Account Type</th>
+    					</tr>
+    					 <?php foreach ($bankDataList as $bankdata) { ?>
+    					<tr>
+    						<td><?php echo $bankdata->email?></td>
+    						<td><?php echo $bankdata->fullname?></td>
+    						<td><?php echo $bankdata->bankid?></td>
+    						<td><?php echo $bankdata->document?></td>
+    						<td><?php echo $bankdata->agency?></td>    						
+    						<td><?php echo $bankdata->account?></td>
+    						<td>
+    						<?php 
+    						
+    						if($bankdata->type==0)
+    						{
+    						    echo "Checking Account";
+    						}
+    						else if($bankdata->type==1)
+    						{
+    						    echo "Savings Account";
+    						}
+    						
+    						?>
+    						</td>
+    					</tr>
+    					<?php }?>
+    				</table>
+    			</div>
+    		</div>
+    </div>
 
 
 </div>

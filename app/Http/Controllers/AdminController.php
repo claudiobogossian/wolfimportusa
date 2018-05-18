@@ -8,6 +8,7 @@ use App\UserAnalysis;
 use App\Investiment;
 use Illuminate\Support\Facades\Mail;
 use App\User;
+use App\BankData;
 
 class AdminController extends Controller
 {
@@ -50,13 +51,20 @@ class AdminController extends Controller
             ->orderBy('requests.date')
             ->get();
             
+            $bankDataList = DB::table('bankdata')->join('users', 'bankdata.userid','=', 'users.id')
+            ->select('users.email as email', 'bankdata.fullname as fullname', 'bankdata.bankid as bankid','bankdata.document as document','bankdata.agency as agency','bankdata.account as account','bankdata.type as type')
+            ->orderBy('users.email')
+            ->get();
+            
+            
             $requeststatus = DB::table('requeststatus')->get();
             
             return view('pages.manage-requests', [
                 'usersrequest' => $usersrequest,
                 'investimentsrequest' => $investimentsrequest,
                 'withdrawsrequest' => $withdrawsrequest,
-                'requeststatus' => $requeststatus
+                'requeststatus' => $requeststatus,
+                'bankDataList' => $bankDataList
             ]);
         }
         
@@ -81,8 +89,6 @@ class AdminController extends Controller
           
             
             DB::beginTransaction();
-            
-            
             
             
             try {
