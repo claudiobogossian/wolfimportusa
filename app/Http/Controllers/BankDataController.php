@@ -6,6 +6,7 @@ use App\BankData;
 use App\Investiment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Contracts\Logging\Log;
 
 class BankDataController extends Controller
 {
@@ -55,7 +56,21 @@ class BankDataController extends Controller
             
             try {
                 
-                $bankdata = new BankData();
+                $matchThese = ['userid' => $user->id];
+                
+                $bankdatalist=BankData::where($matchThese)->get();
+                
+                $bankdata=null;
+                
+                if(!$bankdatalist->isEmpty())
+                {
+                    $bankdata=$bankdatalist->first();
+                }
+                else
+                {
+                    $bankdata = new BankData();
+                }
+                
                 $bankdata->fullname=$fullname;
                 $bankdata->document=$document;
                 $bankdata->bankid=$bankid;
@@ -71,6 +86,8 @@ class BankDataController extends Controller
             catch(\Exception $e)
             {
                 DB::rollback();
+                \Illuminate\Support\Facades\Log::error($e->getMessage());
+                \Illuminate\Support\Facades\Log::error($e->getSql());
             }
             
             DB::commit();

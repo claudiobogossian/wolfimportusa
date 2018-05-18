@@ -48,7 +48,7 @@ class CreateNametableTable extends Migration
             $table->integer('userid')->unsigned();
             $table->integer('bankid');
             $table->string('fullname');
-            $table->integer('document');
+            $table->bigInteger('document');
             $table->string('agency');
             $table->string('account');
             $table->integer('type');
