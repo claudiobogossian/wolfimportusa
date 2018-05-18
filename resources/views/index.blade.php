@@ -182,6 +182,19 @@ use function Monolog\Handler\error_log;
 	    }
 	}
 	
+	else 
+	{ 
+	    //No Active Investiment
+	    ?>
+	    <div class="panel-heading">Investing Details</div>
+		<div class="panel-body">
+			<button type="button" class="btn btn-primary center-block" onclick="window.location='investiment-form'">Invest Right Now!!</button>
+		</div>
+		
+	    
+	    <?php 
+	}
+	
 	?>
 	<script>
 
