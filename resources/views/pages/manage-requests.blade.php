@@ -118,8 +118,10 @@ td
 						<th>Date</th>
 						<th>Status</th>
 						<th>Value</th>
+						<th>%</th>
 						<th>Aproval Date</th>
 						<th>Due Date</th>
+						<th>Status</th>
 						<th>Action</th>
 					</tr>
 					<?php
@@ -153,8 +155,10 @@ td
 							
 						</select></td>
 						<td><?php echo $ir->currencyprefix ?><?php echo $ir->value ?></td>
+						<td><?php echo $ir->investimentpercent ?></td>
 						<td><?php echo $ir->reviewdate ?></td>
 						<td><?php echo $ir->duedate ?></td>
+						<td><?php echo ($ir->done?"<p style='color: red'>Done</p>":"<p style='color: green'>Active</p>") ?></td>
 						<td  align="center">
 							<input type="hidden" name="requestid" value="<?php echo $ir->id?>">
 							<input type="hidden" name="requesttypeid" value="<?php echo $ir->requesttypeid?>">

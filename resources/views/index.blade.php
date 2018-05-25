@@ -68,10 +68,12 @@ use function Monolog\Handler\error_log;
 	 ?>
 	 
 	 
-	 <div class="panel-heading">Investing Details <?php echo $i?></div>
+	 <div class="panel-heading">Investing Details</div>
 		<div class="panel-body">
 
 			<div class="col-sm-4">
+				<div class="row control-label" style="font-weight: bold;">Status</div>
+				<div class="row control-label"><?php echo $investment['done']?"<p style='color: red'>Done</p>":"<p style='color: green'>Active</p>"?></div><br>
 				<div class="row control-label" style="font-weight: bold;">Active
 					Investiment</div>
 				<div class="row control-label"><?php echo $currentcurrency->prefix." ".$investment['activeInvestimentValue']?></div><br>
@@ -81,6 +83,13 @@ use function Monolog\Handler\error_log;
 				<div class="row control-label" style="font-weight: bold;">
 					Accumulated Income</div>
 				<div class="row control-label"><?php echo $currentcurrency->prefix." ".$investment['accumulatedIncome']?></div><br>
+				<div class="row control-label" style="font-weight: bold;">
+					Approval Date</div>
+				<div class="row control-label"><?php echo $investment['approvaldate']?></div><br>
+				<div class="row control-label" style="font-weight: bold;">
+					Due Date</div>
+				<div class="row control-label"><?php echo $investment['duedate']?></div><br>
+			
 
 			</div>
 			<div class="col-sm-8 control-label">

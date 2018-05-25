@@ -20,10 +20,10 @@ class MainController extends Controller
             $currentDate = date('Y\-m\-d');
             
             $investiments = DB::table('investiment')->join('requests', 'investiment.requestid', '=', 'requests.id')
-            ->select('investiment.id', 'investiment.value', 'investiment.userid', 'investiment.investimentpercent', 'investiment.durationindays', 'investiment.done', 'requests.reviewdate', 'requests.id as requestid')
-                ->whereDate('investiment.duedate', '>=', $currentDate)
+            ->select('investiment.id', 'investiment.value', 'investiment.userid', 'investiment.investimentpercent', 'investiment.durationindays', 'investiment.done', 'requests.reviewdate', 'requests.id as requestid', 'investiment.duedate')
                 ->where('requests.approved', true)
                 ->where('userid', $loggeduser->id)
+                ->orderby('investiment.duedate', 'desc')
                 ->get();
             
 
@@ -32,8 +32,7 @@ class MainController extends Controller
             if (! empty($investiments)) {
                 foreach ($investiments as $investiment) {
                     
-                    if($investiment->done==false)
-                    {
+                   
                         $investmentMap = array();
                         
                         $activeInvestimentValue = 0;
@@ -51,26 +50,41 @@ class MainController extends Controller
                         
                         
                         $balances = Balance::where('userid', '=', $loggeduser->id)->where('investimentid','=', $investiment->id)->get();
-                        if (! empty($balances)) {
-                            foreach ($balances as $balance) {
-                                $accumulatedIncome = $accumulatedIncome + $balance->value;
+                 
+                        $chartData = array();
+                                             
+                        if($investiment->done==false)
+                        {
+                            if (! empty($balances)) {
+                                foreach ($balances as $balance) {
+                                    $accumulatedIncome = $accumulatedIncome + $balance->value;
+                                }
                             }
+                        
+                                                  
+                            $currentDate2 = (new \DateTime($currentDate))->modify('+1 day');
+                            
+                            $chartData = MainController::getChartData($chartData, new \DateTime($investiment->reviewdate), $currentDate2, $activeDailyIncome);
+                    
+                        }
+                        else
+                        {
+                            $chartData = MainController::getChartData($chartData, new \DateTime($investiment->reviewdate), new \DateTime($investiment->duedate), $activeDailyIncome);
                         }
                         
                         $investmentMap['activeInvestimentValue'] = $activeInvestimentValue;
                         $investmentMap['activeDailyIncome'] = number_format((float)$activeDailyIncome, 2, ',', '');
                         $investmentMap['accumulatedIncome'] = number_format((float)$accumulatedIncome, 2, ',', '');
-                        
-                        $chartData = array();
-                        
-                        $currentDate2 = (new \DateTime($currentDate))->modify('+1 day');
-                        
-                        $chartData = MainController::getChartData($chartData, new \DateTime($investiment->reviewdate), $currentDate2, $activeDailyIncome);
-                        
+                        $investmentMap['approvaldate']=$investiment->reviewdate;
+                        $investmentMap['duedate']=$investiment->duedate;
                         $investmentMap['chartData'] = $chartData;
+                        $investmentMap['done'] = $investiment->done;
                         
                         array_push($investmentsList,$investmentMap);
-                    }
+                       
+                        
+                        
+                    
                 }
             }
                        
