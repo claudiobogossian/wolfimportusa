@@ -72,7 +72,7 @@ class LoginController extends Controller
     
     public function forgetPassword(Request $request)
     {
-        if ($request->session()->has('loggeduser')) {
+        if (!$request->session()->has('loggeduser')) {
             
             $email = $request->input('email');
          

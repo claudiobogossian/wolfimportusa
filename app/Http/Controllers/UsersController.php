@@ -119,7 +119,7 @@ class UsersController extends Controller
         $birthdate = $request->input('birthdate');
         $document = $request->input('document');
         $password = md5($request->input('password'));
-        $currency = $request->input('currency');
+        //$currency = $request->input('currency');
         $language = $request->input('language');
         
         $user = $request->session()->get('loggeduser');
@@ -130,7 +130,7 @@ class UsersController extends Controller
         $user->document = $document;
         $user->password = $password;
         $user->languageid = $language;
-        $user->currencyid = $currency;
+        //$user->currencyid = $currency;
         $user->isadmin = false;
         
         $date = Carbon::createFromFormat('d/m/Y',$birthdate);
