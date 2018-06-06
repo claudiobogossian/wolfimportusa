@@ -308,6 +308,54 @@ td
     </div>
 
 
+     <div class="panel panel-default">
+        		<div class="panel-heading">Users Balance:</div>
+        		<div class="panel-body">
+        
+        			<div class="container" style="width: 100%;">
+        				<table class="table table-bordered table-striped">
+        					<tr>
+        						<th>E-Mail</th>
+        						<th>Balance</th>
+        						<th>Add Funds</th>
+        					</tr>
+        					 <?php foreach ($usersBalances as $userBalance) { ?>
+        						<form action="addFunds" method="post">
+        					<tr>
+
+        						<td><?php echo $userBalance->email?></td>
+        						<td><?php echo $userBalance->currencyprefix." ".intval($userBalance->value)?></td>
+        						<td align="center">       
+									<input type="hidden" name="userid" value="<?php echo $userBalance->userid?>">
+        							<input class="form-control addFunds btn btn-default" style="width: 200px"  type="text" name="fundsValue" id="addFunds" value="">
+        							 	<button type="submit" class="btn btn-default"
+											>Save</button>	
+											<script>
+
+											$(document).ready(function(){
+											    $("#addFunds").inputmask('currency', {
+											                'alias': 'numeric',
+											                'groupSeparator': ',',
+											                'autoGroup': true,
+											                'digits': 0,
+											                'digitsOptional': false,
+											                'allowMinus': true,
+											                'prefix': '<?php echo $userBalance->currencyprefix ?>',
+											                'placeholder': ''
+											    });
+											});
+
+											</script>				
+        						
+        						</td>
+        						</form>
+        					</tr>
+        					<?php }?>
+        				</table>
+        			</div>
+        		</div>
+        </div>
+
 </div>
 
 <script type="text/javascript">
@@ -330,6 +378,8 @@ $(document).ready(function(){
         'removeMaskOnSubmit': true
     });
 });
+
+
 
 /* $(document).ready(function(){
     $("#currentBalance").inputmask('currency', {

@@ -9,6 +9,7 @@ use App\Investiment;
 use Illuminate\Support\Facades\Mail;
 use App\User;
 use App\BankData;
+use App\Balance;
 
 class AdminController extends Controller
 {
@@ -56,6 +57,14 @@ class AdminController extends Controller
             ->orderBy('users.email')
             ->get();
             
+            $usersBalances = DB::table('balance')
+            ->join('investiment','balance.investimentid','=','investiment.id')
+            ->join('users','users.id','=','balance.userid')
+            ->join('currency', 'users.currencyid', '=', 'currency.id')
+            ->select('users.email as email','users.id as userid','currency.prefix as currencyprefix', DB::raw('SUM(balance.value) as value'))
+            ->where('investiment.done','=', true)
+            ->groupBy('users.email', 'userid', 'currency.prefix')
+            ->get();
             
             $requeststatus = DB::table('requeststatus')->get();
             
@@ -64,7 +73,8 @@ class AdminController extends Controller
                 'investimentsrequest' => $investimentsrequest,
                 'withdrawsrequest' => $withdrawsrequest,
                 'requeststatus' => $requeststatus,
-                'bankDataList' => $bankDataList
+                'bankDataList' => $bankDataList,
+                'usersBalances' => $usersBalances
             ]);
         }
         
@@ -240,6 +250,67 @@ class AdminController extends Controller
                 DB::commit();
             }
 
+            
+            return redirect()->action('AdminController@manageRequests');
+        }
+    }
+    
+    public function addFunds(Request $request)
+    {
+        if (! $request->session()->has('loggeduser'))
+        {
+            return view('pages.register');
+        } else {
+            $user = $request->session()->get('loggeduser');
+            
+            if(!$user->isadmin)
+            {
+                return redirect()->action('MainController@index');
+            }
+            
+            $userid = $request->input('userid');
+            
+            $matchThese = ['id' => $userid];
+
+            $fundsValue = $request->input('fundsValue');
+            
+            if($fundsValue)
+            {
+                try
+                {
+                    
+                    $investiments = DB::table('investiment')
+                    ->select('investiment.id', 'investiment.requestid')
+                    ->where('investiment.userid',$user->id)
+                    ->where('investiment.done',true)
+                    ->orderBy('investiment.date', 'desc')
+                    ->get();
+                    
+                    if(!$investiments->isEmpty())
+                    {
+
+                        
+                        $newBalance = new Balance();
+                        $newBalance->userid = $userid;
+                        $newBalance->date = date('Y\-m\-d\ h:i:s');
+                        $newBalance->value = -$investimentValue;
+                        $newBalance->requestid = $investiments->first().requestid;
+                        $newBalance->investimentid = $investiments->first().id;
+                        
+                        $newBalance->save();
+                        
+                        
+                    }
+                    
+                    
+                }
+                catch(\Exception $e)
+                {
+                    DB::rollback();
+                }
+                DB::commit();
+            }
+            
             
             return redirect()->action('AdminController@manageRequests');
         }

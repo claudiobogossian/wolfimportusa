@@ -56,6 +56,8 @@ Route::post('/forgetPassword', 'LoginController@forgetPassword');
 
 Route::get('/deleteUser', 'AdminController@deleteUser');
 
+Route::get('/addFunds', 'AdminController@addFunds');
+
 
 
 

@@ -130,6 +130,7 @@ $(document).ready(function(){
                 'digitsOptional': false,
                 'allowMinus': false,
                 'placeholder': '',
+                'max':<?php echo intval($balance);  ?>,
                 'prefix': '<?php echo $currentcurrency->prefix ?>',
                 'removeMaskOnSubmit': true
     });

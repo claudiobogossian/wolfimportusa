@@ -48,9 +48,10 @@ class WithdrawController extends Controller
             
             if (! empty($withdraws)) {
                 foreach ($withdraws as $withdraw) {
-                    $accumulatedIncome = $accumulatedIncome - $withdraw->value;
+                    $accumulatedIncome = $accumulatedIncome;
                 }
             }
+                       
             
             return view('pages.withdraw', 
                 ['balance' => $accumulatedIncome,
@@ -74,6 +75,33 @@ class WithdrawController extends Controller
             DB::beginTransaction();
             
             try {
+                
+                $balances = DB::table('balance')->join('investiment','balance.investimentid','=','investiment.id')
+                ->select('balance.value', 'balance.investimentid', 'investiment.requestid')
+                ->where('investiment.done','=',1)
+                ->where('balance.userid','=',$user->id)
+                ->get();
+                
+                $accumulatedIncome=0;
+                
+                $currentInvestmentId=0;
+                $currentRequestId=0;
+                if (! empty($balances)) {
+                    foreach ($balances as $balance) {
+                        $accumulatedIncome = $accumulatedIncome + $balance->value;
+                        $currentInvestmentId = $balance->investimentid;
+                        $currentRequestId = $balance->requestid;
+                    }
+                }
+                
+                if(intval($withdrawValue)
+                    > intval($accumulatedIncome))
+                {
+                    #invalid value, bigger then balance
+                    return redirect()->action('WithdrawController@showWithdrawForm');
+                }
+                
+                
                                
                 $newRequest = new \App\Request();
                 $newRequest->date= date('Y\-m\-d\ h:i:s');
@@ -92,6 +120,18 @@ class WithdrawController extends Controller
                 $withdraw->investimentid=0;
                 
                 $withdraw->save();
+                
+                $newBalance = new Balance();
+                $newBalance->userid = $user->id;
+                $newBalance->date = date('Y\-m\-d\ h:i:s');
+                $newBalance->value = -$withdrawValue;
+                $newBalance->requestid = $currentRequestId;
+                $newBalance->investimentid = $currentInvestmentId;
+                
+                $newBalance->save();
+                
+                
+                
             }
             catch(\Exception $e)
             {
@@ -117,5 +157,5 @@ class WithdrawController extends Controller
             $message->subject('Wolf Imports USA - Nova solicitação de saque.');
         });
    
-    }   
+    }  
 }
