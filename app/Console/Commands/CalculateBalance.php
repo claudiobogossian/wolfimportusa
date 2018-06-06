@@ -7,6 +7,8 @@ use App\User;
 use App\Balance;
 use Illuminate\Support\Facades\Log;
 use App\Investiment;
+use Illuminate\Support\Facades\Mail;
+use App\UserAnalysis;
 
 class CalculateBalance extends Command
 {
@@ -111,6 +113,34 @@ class CalculateBalance extends Command
                                    
                                    $doneInvestiment->save();
                                    
+                                   //Adding investment value to balance
+                                   $newBalance = new Balance();
+                                   
+                                   $newBalance->userid = $doneInvestiment->userid;
+                                   
+                                   $newBalance->date = $currentDate;
+                                   
+                                   $newBalance->value = $doneInvestiment->value;
+                                   
+                                   $newBalance->requestid = $doneInvestiment->requestid;
+                                   
+                                   $newBalance->investimentid = $investiment->id;
+                                   
+                                   $newBalance->save();
+                                   
+                                   //Updating investment percent when fisrt investment is done
+                                   
+                                   $matchThese = ['userid' => $investiment->userid];
+                                   
+                                   $userAnalysis = UserAnalysis::where($matchThese)->first();
+                                   
+                                   if($userAnalysis->investimentpercent<20)
+                                   {
+                                       $userAnalysis->investimentpercent = 20;
+                                   }
+                                   
+                                   $userAnalysis->save();
+                                   
                                 } catch (\Exception $e) {
                                     
                                     echo $e->message;
@@ -125,4 +155,5 @@ class CalculateBalance extends Command
             }
         }
     }
+ 
 }

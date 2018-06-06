@@ -114,14 +114,20 @@
 												placeholder="Email" style="border-radius: 10px 10px 10px 10px; width: 100%; margin-bottom: 15px;"/></p><br>											<p><input type="password" name="password" id="password" 
 												placeholder="Password" style="border-radius: 10px 10px 10px 10px; width: 100%; margin-bottom: 15px;"/></p><br>
 												
+											
+											<div class="row">
+											
 											<input type="submit" name="submit"
 												class="cfa-submit form-submit" value="Login" style="border-radius: 10px 10px 10px 10px; float: left; margin-left: 0px !important; "/>
 												
 											<input type="button" name="cfa-submit"
 												class="cfa-submit form-submit" value="Register" style="border-radius: 10px 10px 10px 10px; float: right;" onclick="window.location='/register-form'"/>
-										
-										
-											<a href="showForgetPassword" style="font-size: 12px; color: white;">Forgot my password</a>
+											
+											</div>
+											<div class="row" style="padding-top: 80px;">
+												
+												<a href="showForgetPassword" style="font-size: 12px; color: white;">Forgot my password</a>
+											</div>
 										</div>
 										
 										</p>

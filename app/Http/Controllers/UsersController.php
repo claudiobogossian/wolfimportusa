@@ -94,7 +94,7 @@ class UsersController extends Controller
             
             $userAnalysis->userid=$newUser->id;
             $userAnalysis->enabled=false;
-            $userAnalysis->investimentpercent = 0;
+            $userAnalysis->investimentpercent = 15;
             $userAnalysis->requestid=$newRequest->id;
             
             $userAnalysis->save();
