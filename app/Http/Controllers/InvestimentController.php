@@ -24,34 +24,17 @@ class InvestimentController extends Controller
             $user = $request->session()->get('loggeduser');
             
             $matchThese = ['userid' => $user->id];
-            $balances = DB::table('balance')->join('investiment','balance.investimentid','=','investiment.id')
-            ->select('balance.value')
-            ->where('investiment.done','=',1)
-            ->where('balance.userid','=',$user->id)
-            ->get();
-             $accumulatedIncome=0;
+            
+            $accumulatedIncome = Balance::calculateCurrentBalance($user);
             
             $userAnalysis=UserAnalysis::where($matchThese)->get();
-            
-            if (! empty($balances)) {
-                foreach ($balances as $balance) {
-                    $accumulatedIncome = $accumulatedIncome + $balance->value;
-                }
-            }
-            
+                   
             $withdraws = DB::table('withdraw')
             ->join('requests', 'withdraw.requestid', '=', 'requests.id')
             ->join('requeststatus', 'requests.requeststatusid', '=', 'requeststatus.id')
             ->select('withdraw.id','withdraw.value', 'requeststatus.name', 'withdraw.date')
             ->where('withdraw.userid','=',$user->id)
             ->get();
-            
-            if (! empty($withdraws)) {
-                foreach ($withdraws as $withdraw) {
-                    $accumulatedIncome = $accumulatedIncome - $withdraw->value;
-                }
-            }
-            
             
             $matchThese2 = ['userid' => $user->id];
             
@@ -80,8 +63,6 @@ class InvestimentController extends Controller
             
             
             $currentcurrency=$request->session()->get('currentcurrency');
-            
-            
             
             if($currentcurrency->id==1)
             {
@@ -146,22 +127,7 @@ class InvestimentController extends Controller
             
             try {
                 
-                $balances = DB::table('balance')->join('investiment','balance.investimentid','=','investiment.id')
-                ->select('balance.value', 'balance.investimentid', 'investiment.requestid')
-                ->where('investiment.done','=',1)
-                ->where('balance.userid','=',$user->id)
-                ->get();
-                
-                $accumulatedIncome=0;
-                $currentInvestmentId=0;
-                $currentRequestId=0;
-                if (! empty($balances)) {
-                    foreach ($balances as $balance) {
-                        $accumulatedIncome = $accumulatedIncome + $balance->value;
-                        $currentInvestmentId = $balance->investimentid;
-                        $currentRequestId = $balance->requestid;
-                    }
-                }
+                $accumulatedIncome = Balance::calculateCurrentBalance($user);
                 
                 if(intval($investimentValue)
                     > intval($accumulatedIncome))
@@ -194,8 +160,8 @@ class InvestimentController extends Controller
                 $newBalance->userid = $user->id;
                 $newBalance->date = date('Y\-m\-d\ h:i:s');
                 $newBalance->value = -$investimentValue;
-                $newBalance->requestid = $currentRequestId;
-                $newBalance->investimentid = $currentInvestmentId;
+                $newBalance->requestid = null;
+                $newBalance->investimentid = null;
                 
                 $newBalance->save();
                 

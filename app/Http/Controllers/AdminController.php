@@ -57,14 +57,19 @@ class AdminController extends Controller
             ->orderBy('users.email')
             ->get();
             
-            $usersBalances = DB::table('balance')
-            ->join('investiment','balance.investimentid','=','investiment.id')
-            ->join('users','users.id','=','balance.userid')
+            $users = DB::table('users')
             ->join('currency', 'users.currencyid', '=', 'currency.id')
-            ->select('users.email as email','users.id as userid','currency.prefix as currencyprefix', DB::raw('SUM(balance.value) as value'))
-            ->where('investiment.done','=', true)
-            ->groupBy('users.email', 'userid', 'currency.prefix')
+            ->select('users.email as email','users.id as id','currency.prefix as currencyprefix')
             ->get();
+            
+            foreach ($users as $user)
+            {
+                $currentBalance = Balance::calculateCurrentBalance($user);
+                
+                $user->value=$currentBalance;
+                
+            }
+            
             
             $requeststatus = DB::table('requeststatus')->get();
             
@@ -74,7 +79,7 @@ class AdminController extends Controller
                 'withdrawsrequest' => $withdrawsrequest,
                 'requeststatus' => $requeststatus,
                 'bankDataList' => $bankDataList,
-                'usersBalances' => $usersBalances
+                'usersBalances' => $users
             ]);
         }
         
@@ -278,30 +283,14 @@ class AdminController extends Controller
             {
                 try
                 {
-                    
-                    $investiments = DB::table('investiment')
-                    ->select('investiment.id', 'investiment.requestid')
-                    ->where('investiment.userid',$user->id)
-                    ->where('investiment.done',true)
-                    ->orderBy('investiment.date', 'desc')
-                    ->get();
-                    
-                    if(!$investiments->isEmpty())
-                    {
-
-                        
-                        $newBalance = new Balance();
-                        $newBalance->userid = $userid;
-                        $newBalance->date = date('Y\-m\-d\ h:i:s');
-                        $newBalance->value = -$investimentValue;
-                        $newBalance->requestid = $investiments->first().requestid;
-                        $newBalance->investimentid = $investiments->first().id;
-                        
-                        $newBalance->save();
-                        
-                        
-                    }
-                    
+                                        
+                    $newBalance = new Balance();
+                    $newBalance->userid = $userid;
+                    $newBalance->date = date('Y\-m\-d\ h:i:s');
+                    $newBalance->value = $fundsValue;
+                    $newBalance->requestid = null;
+                    $newBalance->investimentid = null;
+                    $newBalance->save();
                     
                 }
                 catch(\Exception $e)
