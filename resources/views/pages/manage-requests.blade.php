@@ -321,8 +321,7 @@ td
         					</tr>
         					 <?php foreach ($usersBalances as $userBalance) 
         					 {
-        					     if($userBalance->value>=1)
-        					     {
+        					     
         					     ?>
         						<form action="addFunds" method="get">
         					<tr>
@@ -331,13 +330,13 @@ td
         						<td><?php echo $userBalance->currencyprefix." ".intval($userBalance->value)?></td>
         						<td align="center">       
 									<input type="hidden" name="userid" value="<?php echo $userBalance->id?>">
-        							<input class="form-control addFunds btn btn-default" style="width: 200px"  type="text" name="fundsValue" id="addFunds" value="">
+        							<input class="form-control addFunds btn btn-default" style="width: 200px"  type="text" name="fundsValue" id="addFunds-<?php echo $userBalance->id ?>" value="">
         							 	<button type="submit" class="btn btn-default"
 											>Add</button>	
 											<script>
 
 											$(document).ready(function(){
-											    $("#addFunds").inputmask('currency', {
+											    $("#addFunds-<?php echo $userBalance->id ?>").inputmask('currency', {
 											                'alias': 'numeric',
 											                'groupSeparator': ',',
 											                'autoGroup': true,
@@ -355,7 +354,7 @@ td
         						</td>
         						</form>
         					</tr>
-        					<?php } 
+        					<?php  
         					     
         					 }?>
         				</table>
