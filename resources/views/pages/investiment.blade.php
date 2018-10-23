@@ -83,7 +83,7 @@
                                  	<input name="durationindays" id="durationindays"
 								type="text" class="form-control" />
     					            <?php
-    					            
+    					            $user = $request->session()->get('loggeduser');
     					            if (!$user->isadmin)
     					            {
     					               echo $userAnalysis->investimentpercent."%";  
